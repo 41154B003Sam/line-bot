@@ -1,7 +1,16 @@
+import io
 import os
 import sys
 from dotenv import load_dotenv
 from flask import Flask, request, abort, jsonify
+
+# Windows 終端機 UTF-8 編碼修正，避免輸出 emoji 時引發 cp950 編碼崩潰
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
@@ -42,7 +51,6 @@ gemini_client = genai.Client(api_key=gemini_api_key) if gemini_api_key else None
 def ask_gemini(user_message: str) -> str:
     """呼叫 Google Gemini API 取得智慧回答"""
     global gemini_client
-    # 動態檢查環境變數
     current_key = os.getenv("GEMINI_API_KEY")
     if not gemini_client and current_key:
         gemini_client = genai.Client(api_key=current_key)
@@ -56,7 +64,7 @@ def ask_gemini(user_message: str) -> str:
 
     system_prompt = (
         "你是一個聰明、熱心且幽默有禮的 LINE 個人智慧助理。"
-        "請一律使用繁體中文（台灣繁體）回覆。"
+        "請一律使用繁體中文（台灣繁體習慣）回覆。"
         "回答要重點分明、親切友善，可適當使用 emoji 與條列整理，語句精簡流暢，適合在手機 LINE 閱讀。"
     )
 
@@ -131,20 +139,30 @@ if handler:
     @handler.add(MessageEvent, message=TextMessageContent)
     def handle_message(event):
         user_text = event.message.text.strip()
-        print(f"收到來自使用者 [{event.source.user_id}] 的問題: {user_text}")
+        try:
+            print(f"收到來自使用者 [{event.source.user_id}] 的問題: {user_text}")
+        except Exception:
+            pass
 
-        # 呼叫 Gemini AI
+        # 呼叫 Gemini AI 取得回答
         ai_reply = ask_gemini(user_text)
-        print(f"Gemini AI 回覆: {ai_reply[:60]}...")
 
-        with ApiClient(configuration) as api_client:
-            line_bot_api = MessagingApi(api_client)
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[TextMessage(text=ai_reply)],
+        try:
+            print(f"Gemini AI 回覆: {ai_reply[:60]}...")
+        except Exception:
+            pass
+
+        try:
+            with ApiClient(configuration) as api_client:
+                line_bot_api = MessagingApi(api_client)
+                line_bot_api.reply_message(
+                    ReplyMessageRequest(
+                        reply_token=event.reply_token,
+                        messages=[TextMessage(text=ai_reply)],
+                    )
                 )
-            )
+        except Exception as err:
+            app.logger.error(f"傳送 LINE 回覆訊息失敗: {err}")
 
 
 if __name__ == "__main__":
