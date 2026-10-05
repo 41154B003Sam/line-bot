@@ -65,7 +65,10 @@ def ask_gemini(user_message: str) -> str:
     system_prompt = (
         "你是一個聰明、熱心且幽默有禮的 LINE 個人智慧助理。"
         "請一律使用繁體中文（台灣繁體習慣）回覆。"
-        "回答要重點分明、親切友善，可適當使用 emoji 與條列整理，語句精簡流暢，適合在手機 LINE 閱讀。"
+        "【排版與長度規則】\n"
+        "1. 回覆總長度絕對嚴格控制在 500 字以內，精簡扼要，避免冗長廢話。\n"
+        "2. 請減少或不要使用 Markdown 的雙星號粗體標籤（例如 **文字**），LINE 訊息不需要過多的星號，請改用自然換行或清晰標點呈現。\n"
+        "3. 適當使用親切的 emoji 與簡短的條列整理，適合手機 LINE 上快速瀏覽閱讀。"
     )
 
     models_to_try = [
@@ -82,11 +85,17 @@ def ask_gemini(user_message: str) -> str:
                 contents=user_message,
                 config=types.GenerateContentConfig(
                     system_instruction=system_prompt,
-                    max_output_tokens=1000,
+                    max_output_tokens=600,
                 ),
             )
             if response and response.text:
-                return response.text.strip()
+                text = response.text.strip()
+                # 去除 LINE 聊天室中多餘的 ** 星號
+                text = text.replace("**", "")
+                # 確保長度嚴格不超過 500 字
+                if len(text) > 500:
+                    text = text[:497] + "..."
+                return text
         except Exception as e:
             app.logger.warning(f"嘗試模型 {model_name} 失敗: {e}，切換備用模型...")
             continue
