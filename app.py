@@ -21,7 +21,11 @@ from linebot.v3.messaging import (
     ReplyMessageRequest,
     TextMessage,
 )
-from linebot.v3.webhooks import MessageEvent, TextMessageContent
+from linebot.v3.webhooks import (
+    MessageEvent,
+    TextMessageContent,
+    StickerMessageContent,
+)
 
 from google import genai
 from google.genai import types
@@ -65,10 +69,11 @@ def ask_gemini(user_message: str) -> str:
     system_prompt = (
         "你是一個聰明、熱心且幽默有禮的 LINE 個人智慧助理。"
         "請一律使用繁體中文（台灣繁體習慣）回覆。"
-        "【排版與長度規則】\n"
-        "1. 回覆總長度絕對嚴格控制在 500 字以內，精簡扼要，避免冗長廢話。\n"
-        "2. 請減少或不要使用 Markdown 的雙星號粗體標籤（例如 **文字**），LINE 訊息不需要過多的星號，請改用自然換行或清晰標點呈現。\n"
-        "3. 適當使用親切的 emoji 與簡短的條列整理，適合手機 LINE 上快速瀏覽閱讀。"
+        "【排版與長度重要規則】\n"
+        "1. 回覆總長度嚴格控制在 250 至 450 字之間（最長絕對不可超過 500 字）。\n"
+        "2. 務必在限制長度內把語意完整表達完畢，有頭有尾，切勿話說到一半斷掉！請以完整的句子句號結束。\n"
+        "3. 請減少或不要使用 Markdown 的雙星號粗體標籤（例如 **文字**），LINE 訊息不需要過多的星號，請改用自然換行或清晰標點呈現。\n"
+        "4. 適當使用親切的 emoji 與簡短的條列整理，適合手機 LINE 上快速瀏覽閱讀。"
     )
 
     models_to_try = [
@@ -80,21 +85,32 @@ def ask_gemini(user_message: str) -> str:
 
     for model_name in models_to_try:
         try:
+            # 提高 max_output_tokens 確保中文字元充足，絕不因 token 不足而在半句中斷
             response = gemini_client.models.generate_content(
                 model=model_name,
                 contents=user_message,
                 config=types.GenerateContentConfig(
                     system_instruction=system_prompt,
-                    max_output_tokens=600,
+                    max_output_tokens=2048,
                 ),
             )
             if response and response.text:
                 text = response.text.strip()
                 # 去除 LINE 聊天室中多餘的 ** 星號
                 text = text.replace("**", "")
-                # 確保長度嚴格不超過 500 字
+                # 確保長度不超過 500 字，若超出則在最近的句點安全截斷
                 if len(text) > 500:
-                    text = text[:497] + "..."
+                    truncated = text[:495]
+                    last_punct = max(
+                        truncated.rfind("。"),
+                        truncated.rfind("！"),
+                        truncated.rfind("？"),
+                        truncated.rfind("\n"),
+                    )
+                    if last_punct > 250:
+                        text = truncated[: last_punct + 1]
+                    else:
+                        text = truncated + "..."
                 return text
         except Exception as e:
             app.logger.warning(f"嘗試模型 {model_name} 失敗: {e}，切換備用模型...")
@@ -148,6 +164,21 @@ if handler:
     @handler.add(MessageEvent, message=TextMessageContent)
     def handle_message(event):
         user_text = event.message.text.strip()
+
+        # 若使用者僅傳送表情符號 (emoji) 或類似貼圖的表情，已讀不回
+        if user_text == "(emoji)" or (
+            hasattr(event.message, "emojis")
+            and event.message.emojis
+            and not user_text.replace("(emoji)", "").strip()
+        ):
+            try:
+                print(
+                    f"收到來自使用者 [{event.source.user_id}] 的純 Emoji 表情符號，已讀不回覆。"
+                )
+            except Exception:
+                pass
+            return
+
         try:
             print(f"收到來自使用者 [{event.source.user_id}] 的問題: {user_text}")
         except Exception:
@@ -172,6 +203,18 @@ if handler:
                 )
         except Exception as err:
             app.logger.error(f"傳送 LINE 回覆訊息失敗: {err}")
+
+    # 註冊貼圖訊息處理器 (收到貼圖已讀不回)
+    @handler.add(MessageEvent, message=StickerMessageContent)
+    def handle_sticker_message(event):
+        try:
+            print(
+                f"收到來自使用者 [{event.source.user_id}] 的貼圖 (package: {event.message.package_id}, sticker: {event.message.sticker_id})，已讀不回覆。"
+            )
+        except Exception:
+            pass
+        # 僅接收 Webhook 事件，不發送任何回覆訊息
+        return
 
 
 if __name__ == "__main__":
