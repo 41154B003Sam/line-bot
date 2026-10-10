@@ -7,9 +7,6 @@
   @page {
     size: A4;
     margin: 18mm 15mm 20mm 15mm;
-    @bottom-right {
-      content: counter(page);
-    }
   }
 
   * {
@@ -22,7 +19,7 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
     color: #1e293b;
     line-height: 1.65;
-    font-size: 10.5pt;
+    font-size: 10pt;
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -35,64 +32,59 @@
     justify-content: space-between;
     page-break-after: always;
     break-after: page;
-    padding: 30mm 10mm 20mm 10mm;
+    padding: 25mm 10mm 15mm 10mm;
   }
 
   .cover-badge {
     display: inline-block;
     background: #06c755;
     color: white;
-    font-size: 11pt;
+    font-size: 10.5pt;
     font-weight: 700;
-    padding: 6px 16px;
+    padding: 5px 15px;
     border-radius: 20px;
-    letter-spacing: 1px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 10px rgba(6, 199, 85, 0.25);
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
   }
 
   .cover-title {
-    font-size: 32pt;
+    font-size: 30pt;
     font-weight: 800;
     color: #0f172a;
     line-height: 1.25;
-    margin: 0 0 15px 0;
+    margin: 0 0 12px 0;
   }
 
   .cover-subtitle {
-    font-size: 15pt;
+    font-size: 14pt;
     color: #475569;
     font-weight: 500;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
     border-left: 4px solid #06c755;
-    padding-left: 15px;
+    padding-left: 14px;
   }
 
   .cover-meta {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 24px;
+    padding: 20px 24px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px 25px;
-    margin-top: 40px;
-  }
-
-  .meta-item {
-    font-size: 10pt;
+    gap: 14px 20px;
   }
 
   .meta-label {
     font-weight: 600;
     color: #64748b;
-    margin-bottom: 3px;
+    font-size: 9pt;
+    margin-bottom: 2px;
   }
 
   .meta-val {
     color: #0f172a;
     font-weight: 700;
-    font-size: 11pt;
+    font-size: 10.5pt;
   }
 
   .page {
@@ -107,34 +99,23 @@
   }
 
   h1 {
-    font-size: 18pt;
+    font-size: 16pt;
     font-weight: 800;
     color: #0f172a;
     border-bottom: 2px solid #06c755;
-    padding-bottom: 8px;
-    margin-top: 25px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    padding-bottom: 6px;
+    margin-top: 22px;
+    margin-bottom: 14px;
   }
 
   h2 {
-    font-size: 13pt;
+    font-size: 12pt;
     font-weight: 700;
     color: #1e293b;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 16px;
+    margin-bottom: 8px;
     border-left: 3.5px solid #3b82f6;
     padding-left: 10px;
-  }
-
-  h3 {
-    font-size: 11pt;
-    font-weight: 700;
-    color: #334155;
-    margin-top: 14px;
-    margin-bottom: 8px;
   }
 
   p {
@@ -143,8 +124,8 @@
   }
 
   ul, ol {
-    margin: 0 0 12px 0;
-    padding-left: 22px;
+    margin: 0 0 10px 0;
+    padding-left: 20px;
   }
 
   li {
@@ -155,8 +136,8 @@
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 15px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
   }
 
   .card-highlight {
@@ -165,7 +146,13 @@
     border-left: 4px solid #06c755;
   }
 
-  .card-alert {
+  .card-amber {
+    background: #fefce8;
+    border: 1px solid #fef08a;
+    border-left: 4px solid #eab308;
+  }
+
+  .card-blue {
     background: #eff6ff;
     border: 1px solid #bfdbfe;
     border-left: 4px solid #3b82f6;
@@ -174,12 +161,12 @@
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 12px 0 18px 0;
-    font-size: 9.5pt;
+    margin: 10px 0 16px 0;
+    font-size: 9pt;
   }
 
   th, td {
-    padding: 9px 12px;
+    padding: 8px 10px;
     text-align: left;
     border: 1px solid #e2e8f0;
   }
@@ -194,69 +181,45 @@
     background: #f8fafc;
   }
 
-  .tag {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 8.5pt;
-    font-weight: 600;
-  }
-
-  .tag-green { background: #dcfce7; color: #166534; }
-  .tag-blue { background: #dbeafe; color: #1e40af; }
-  .tag-yellow { background: #fef9c3; color: #854d0e; }
-  .tag-purple { background: #f3e8ff; color: #6b21a8; }
-
-  .code-block {
-    background: #0f172a;
-    color: #e2e8f0;
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-family: "Consolas", "Courier New", monospace;
-    font-size: 9pt;
-    line-height: 1.5;
-    margin: 10px 0 14px 0;
-    overflow-x: auto;
-  }
-
-  .diagram-box {
-    background: #ffffff;
-    border: 2px dashed #cbd5e1;
-    border-radius: 10px;
-    padding: 16px;
-    text-align: center;
-    margin: 15px 0;
-    font-family: "Consolas", monospace;
-    font-size: 9pt;
-  }
-
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 12px;
+    gap: 14px;
+    margin-bottom: 10px;
   }
 
-  .metric-box {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+  .chat-box {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
     border-radius: 8px;
-    padding: 12px;
-    text-align: center;
+    padding: 10px 12px;
+    margin: 8px 0;
+    font-size: 9pt;
   }
 
-  .metric-num {
-    font-size: 18pt;
-    font-weight: 800;
-    color: #06c755;
-    margin-bottom: 2px;
+  .chat-user {
+    color: #15803d;
+    font-weight: 700;
+    margin-bottom: 4px;
   }
 
-  .metric-label {
-    font-size: 8.5pt;
-    color: #64748b;
+  .chat-bot {
+    color: #1e3a8a;
+    font-weight: 700;
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 8pt;
     font-weight: 600;
   }
+  .tag-green { background: #dcfce7; color: #166534; }
+  .tag-yellow { background: #fef9c3; color: #854d0e; }
+  .tag-blue { background: #dbeafe; color: #1e40af; }
 </style>
 </head>
 <body>
@@ -264,314 +227,243 @@
 <!-- 封面 -->
 <div class="cover-page">
   <div>
-    <div class="cover-badge">PROJECT ARCHITECTURE & ROADMAP v1.0</div>
-    <div class="cover-title">LINE Bot 智慧 AI 助理<br>專案規劃與建置計畫書</div>
-    <div class="cover-subtitle">結合 Google Gemini 大型語言模型之即時語意對話機器人</div>
+    <div class="cover-badge">LINE BOT PROJECT PLAN & SPECIFICATION v1.0</div>
+    <div class="cover-title">【主題名稱】智聊小精靈<br>(Gemini Smart Assistant)</div>
+    <div class="cover-subtitle">基於 Google Gemini 模型之繁體中文生活對話助理專案計畫書</div>
 
-    <div class="card card-highlight" style="margin-top: 30px;">
-      <strong>專案願景：</strong>
-      打造零主機成本、安全隔離金鑰、回應自然且具備自動模型備援的現代化 LINE 智慧對話機器人，為使用者提供 24/7 免費高效率的繁體中文諮詢與互動體驗。
+    <div class="card card-highlight">
+      <strong>專案摘要：</strong>
+      本專案實作一套結合 Python Flask、LINE Messaging API v3 與 Google Gemini 大型語言模型的智慧對話機器人，具備繁中手機排版最佳化、長度控制、標點符號安全截斷、貼圖已讀不回與四重模型自動降級備援機制，達成 100% 零主機成本運行。
     </div>
   </div>
 
   <div class="cover-meta">
-    <div class="meta-item">
-      <div class="meta-label">專案名稱</div>
-      <div class="meta-val">LINE Bot with Gemini AI (v1.0)</div>
+    <div>
+      <div class="meta-label">機器人命名 (Topic Title)</div>
+      <div class="meta-val">智聊小精靈 (Gemini Smart Bot)</div>
     </div>
-    <div class="meta-item">
+    <div>
       <div class="meta-label">版本狀態</div>
-      <div class="meta-val"><span class="tag tag-green">Release v1.0.0 (Production Ready)</span></div>
+      <div class="meta-val"><span class="tag tag-green">Release v1.0 (Production Verified)</span></div>
     </div>
-    <div class="meta-item">
-      <div class="meta-label">GitHub 儲存庫</div>
-      <div class="meta-val">41154B003Sam / line-bot</div>
+    <div>
+      <div class="meta-label">開源儲存庫</div>
+      <div class="meta-val">github.com/41154B003Sam/line-bot</div>
     </div>
-    <div class="meta-item">
+    <div>
       <div class="meta-label">核心技術棧</div>
-      <div class="meta-val">Python 3.12, Flask 3.1, LINE SDK v3, Gemini API</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">編制日期</div>
-      <div class="meta-val">2026 年 10 月</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">維護負責人</div>
-      <div class="meta-val">41154B003Sam</div>
+      <div class="meta-val">Flask 3.1, LINE SDK v3, Google GenAI, Cloudflare</div>
     </div>
   </div>
 </div>
 
-<!-- 第 1 頁：專案背景、目標與架構 -->
+<!-- 第 1 頁：題目、目標客群、核心功能 -->
 <div class="page">
-  <h1>1. 專案概述與目標</h1>
-  <p>隨著即時通訊軟體普及，LINE 已成為台灣使用者最主要的日常通訊工具。傳統的「鸚鵡學舌（Echo Bot）」僅能機械式覆誦文字，缺乏實用商業與個人價值；而一般商業 AI Bot 常面臨昂貴的伺服器託管費用與 API 授權支出。本專案以<strong>極簡架構、完全零成本、高穩定度</strong>為核心目標，完成第一版（v1.0）LINE 智慧對話機器人的設計與上線。</p>
+  <h1>1. 機器人命名與主題 (Topic Title)</h1>
+  <p><strong>正式名稱：</strong><code>智聊小精靈 (Gemini Smart Bot)</code></p>
+  <p><strong>命名意涵：</strong>以「智慧聊聊」為核心概念，化身為常駐在每位使用者 LINE 聊天室裡的輕巧小精靈。免除複雜 App 下載，透過最熟悉的通訊軟體即可隨時進行繁體中文日常問答、生活規劃與靈感啟發。</p>
 
+  <h1>2. 目標客群與欲解決問題 (Target Audience & Purpose)</h1>
   <div class="grid-2">
     <div class="card">
-      <h3 style="margin-top:0; color:#06c755;">🎯 關鍵目標 (Key Goals)</h3>
+      <h2 style="margin-top:0;">👥 目標客群 (Target Audience)</h2>
       <ul>
-        <li><strong>AI 智慧化賦能</strong>：由純 Echo Bot 升級至 Google Gemini AI 模型。</li>
-        <li><strong>零營運成本</strong>：善用 Google AI Studio 免費額度與 Cloudflare 免費隧道。</li>
-        <li><strong>極致用戶體驗</strong>：排版去粗體星號、限制手機閱讀字數、貼圖已讀不回。</li>
-        <li><strong>企業級安全標準</strong>：落實金鑰隔離、簽章驗證與零機密外洩防護。</li>
+        <li><strong>LINE 高頻度日常使用者</strong>：上班族、在學學生、自由工作者與家庭生活者。</li>
+        <li><strong>需要即時靈感與生活解答者</strong>：不想打開厚重視窗或搜尋引擎慢慢翻找網頁，希望輸入一句話即可得到精準解答的人群。</li>
+        <li><strong>追求極簡溝通介面者</strong>：習慣手機直覺打字互動，排斥被無關廣告與繁複功能干擾的使用者。</li>
       </ul>
     </div>
-    <div class="card">
-      <h3 style="margin-top:0; color:#3b82f6;">📊 交付物清單 (Deliverables)</h3>
+    <div class="card card-highlight">
+      <h2 style="margin-top:0;">🎯 欲解決之痛點 (Problem Solved)</h2>
       <ul>
-        <li>Flask + LINE Messaging API v3 後端主程式 (<code>app.py</code>)</li>
-        <li>繁中版專案規格說明文件 (<code>README.md</code>, <code>walkthrough.md</code>)</li>
-        <li>機密隔離與依賴清單 (<code>.env.example</code>, <code>requirements.txt</code>)</li>
-        <li>公開 GitHub 開源儲存庫 (<code>41154B003Sam/line-bot</code>)</li>
-        <li>完整專案計畫書與成果簡報 PDF</li>
+        <li><strong>跨 App 查詢之操作負擔</strong>：不再需要切換至外網或付費 AI 平台，在日常聊天室即可 24 小時免費提問。</li>
+        <li><strong>打破傳統 Bot 死板限制</strong>：告別傳統 Echo 機器人只會覆誦或依賴關鍵字匹配的生硬體驗。</li>
+        <li><strong>手機端排版適配問題</strong>：傳統 AI 容易輸出過長字串或在手機上殘留不支援的 Markdown 粗體星號（<code>**</code>），本系統專注於手機閱讀體驗之優化。</li>
       </ul>
     </div>
   </div>
 
-  <h1>2. 系統架構與資料流向</h1>
-  <p>整體系統採用非同步事件驅動設計，使用者於手機端觸發訊息後，經由 LINE 官方雲端推送至公開 HTTPS 端點，後端伺服器在安全驗證後與 Google Gemini 運算中心通訊並立即回覆。</p>
-
-  <div class="diagram-box">
-    [LINE 使用者手機]<br>
-    │<br>
-    ▼ (發送文字 / 貼圖)<br>
-    [LINE Messaging API 雲端伺服器]<br>
-    │<br>
-    ▼ (Webhook POST /callback + X-Line-Signature)<br>
-    [Cloudflare Tunnel 邊緣節點 (HTTPS 穿透)]<br>
-    │<br>
-    ▼ (轉發本地請求)<br>
-    [Flask 應用伺服器 (app.py :5000)]<br>
-    ├─► 1. 驗證 HMAC-SHA256 數位簽章<br>
-    ├─► 2. 判斷訊息型態 (Sticker/Emoji ➜ 僅記錄日誌，已讀不回)<br>
-    ├─► 3. 呼叫 Google Gemini API (多模型備援序列)<br>
-    ├─► 4. 輸出文字後處理 (移除 ** 星號、500 字安全句尾截斷)<br>
-    └─► 5. 透過 LINE Reply API 發送格式化回覆<br>
-    │<br>
-    ▼<br>
-    [使用者手機即時收到流暢解答]
-  </div>
-</div>
-
-<!-- 第 2 頁：核心技術規格與特色 -->
-<div class="page">
-  <h1>3. 核心技術規格與特色機制</h1>
-
-  <h2>3.1 Google Gemini AI 智慧整合與模型序列備援</h2>
-  <p>為避免因單一模型於尖峰時段發生 <code>503 High Demand / Resource Exhausted</code> 錯誤導致服務中斷，後端實作了動態降級備援機制（Fallback Chain）。系統將依序嘗試以下模型群：</p>
-  
+  <h1>3. 本次實作核心功能 (Core Function)</h1>
+  <p>第一版（v1.0）聚焦實作之關鍵核心為：<strong>「繁中語意問答與排版收斂引擎」</strong>，其包含以下五大核心模組：</p>
   <table>
     <thead>
       <tr>
-        <th>優先順序</th>
-        <th>模型名稱</th>
-        <th>設計特性</th>
-        <th>備援觸發機制</th>
+        <th>模組名稱</th>
+        <th>技術規格與實作機制</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Priority 1</strong></td>
-        <td><code>gemini-flash-latest</code></td>
-        <td>最新版 Flash 模型，反應速度極快，綜合理解力最佳</td>
-        <td>主模型，預設呼叫</td>
+        <td><strong>Gemini 模型串接</strong></td>
+        <td>使用官方 <code>google-genai</code> SDK，注入繁體中文在地化 System Prompt，設定親切幽默之專屬人設。</td>
       </tr>
       <tr>
-        <td><strong>Priority 2</strong></td>
-        <td><code>gemini-3.8-flash</code></td>
-        <td>次世代預覽架構，具備優異的邏輯推理與結構化輸出</td>
-        <td>當 P1 出現 503 或異常時自動切換</td>
+        <td><strong>四重模型自動降級 (Fallback)</strong></td>
+        <td>依序嘗試 <code>gemini-flash-latest</code> ➜ <code>gemini-3.8-flash</code> ➜ <code>gemini-3.5-flash</code> ➜ <code>gemini-flash-lite</code>，抵禦 503 限流。</td>
       </tr>
       <tr>
-        <td><strong>Priority 3</strong></td>
-        <td><code>gemini-3.5-flash</code></td>
-        <td>成熟高穩定版本，推論品質可靠</td>
-        <td>當 P2 亦繁忙時介入接手</td>
+        <td><strong>輸出長度嚴格控制</strong></td>
+        <td>限制回覆於 250 ~ 450 字之間（最長不超過 500 字），設定 <code>max_output_tokens=2048</code> 防止 token 不足半句斷頭。</td>
       </tr>
       <tr>
-        <td><strong>Priority 4</strong></td>
-        <td><code>gemini-flash-lite-latest</code></td>
-        <td>極輕量化節點，極限降低延遲與資源消耗</td>
-        <td>終極保護層，確保服務永不中斷</td>
+        <td><strong>標點安全截斷演算法</strong></td>
+        <td>若模型偶然超過 500 字，演算法會在倒數最近的標點（<code>。</code>、<code>！</code>、<code>？</code>、換行）安全收尾，絕不留下半句殘詞。</td>
+      </tr>
+      <tr>
+        <td><strong>Markdown 星號清洗</strong></td>
+        <td>自動過濾 LINE 不支援的雙星號 <code>**</code> 粗體語法，轉為親切自然之條列與 Emoji 排版。</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 第 2 頁：對話範例與 AI 輔助方式 -->
+<div class="page">
+  <h1>4. 對話範例展示 (Dialogue Examples)</h1>
+  <p>以下展示機器人於「正常使用情境」與「輸入不完整／模糊情境」下之實際對話反應：</p>
+
+  <h2>4.1 組一：正常使用情境 (Normal Usage Scenario)</h2>
+  <div class="chat-box">
+    <div class="chat-user">👤 使用者輸入：</div>
+    <div>「我想在週末安排台北一日遊，請推薦 3 個搭捷運能到的景點和美食！」</div>
+    <div class="chat-bot">🤖 智聊小精靈回覆：</div>
+    <div style="white-space: pre-line;">嗨！沒問題，為你精選 3 個搭捷運就能輕鬆抵達的台北一日遊好去處 🚇✨
+
+1. 中山站赤峰街：漫步文青巷弄小店與老宅咖啡廳，推薦品嚐排隊甜點戚風蛋糕 🍰
+2. 大安森林公園站：享受都市森林綠意，野餐放鬆，還能順道漫步永康街吃牛肉麵 🍜
+3. 淡水站金色水岸：傍晚漫步淡水河畔看浪漫夕陽，必吃現炸魚酥與阿給小吃 🌅
+
+這條路線交通非常順暢，很適合週末放慢步調散步放鬆喔！祝你有個愉快充實的週末～😊</div>
+  </div>
+
+  <h2>4.2 組二：輸入不完整／模糊情境 (Incomplete / Ambiguous Scenario)</h2>
+  <div class="chat-box">
+    <div class="chat-user">👤 使用者輸入：</div>
+    <div>「推薦」</div>
+    <div class="chat-bot">🤖 智聊小精靈回覆：</div>
+    <div style="white-space: pre-line;">哈囉！看到你發送了簡短的關鍵字，我猜你可能是想尋找推薦？😄
+
+為了提供最符合你需求的精準建議，可以再多告訴我一點線索嗎：
+• 🍽️ 美食晚餐推薦：想找平價小吃、精緻火鍋、日式料理還是聚餐餐廳？地點在哪個區域？
+• 🎬 休閒娛樂推薦：想看熱門電影、推薦書籍、還是週末旅遊踏青景點？
+• 📱 科技生活推薦：想了解 3C 產品還是實用 App 工具？
+
+只要隨時補充你的預算或地點，我就能馬上為你量身推薦囉！隨時等你的訊息～✨</div>
+  </div>
+
+  <h1>5. AI 輔助開發方式與範疇 (AI Assistance Methods)</h1>
+  <p>在本次專案的全生命週期中，AI 深度介入輔助完成以下四大維度任務：</p>
+  <div class="grid-2">
+    <div class="card card-blue">
+      <h2 style="margin-top:0;">💻 程式撰寫 (Programming)</h2>
+      <ul>
+        <li>建構 Flask 3.1 伺服器與 LINE SDK v3 框架。</li>
+        <li>實作 Google GenAI 客戶端呼叫與 Token 管理邏輯。</li>
+        <li>編寫 Markdown 星號清洗與標點安全截斷演算法。</li>
+      </ul>
+    </div>
+    <div class="card card-amber">
+      <h2 style="margin-top:0;">🐞 除錯與相容性 (Debugging)</h2>
+      <ul>
+        <li>定位並排除 Windows CP950 終端列印 Emoji 引發的崩潰例外。</li>
+        <li>捕獲免費版 Gemini 503 尖峰限流並架構 Try-Catch 降級佇列。</li>
+        <li>修正 LINE Webhook 之 HMAC-SHA256 簽章比對驗證。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2 style="margin-top:0;">📊 簡報產出 (Presentations)</h2>
+      <ul>
+        <li>規劃結構完整之 16:9 投影片內容。</li>
+        <li>編寫現代深色對比卡片視覺 CSS，以無頭瀏覽器產出 PDF。</li>
+      </ul>
+    </div>
+    <div class="card card-highlight">
+      <h2 style="margin-top:0;">🌐 網頁與 UX (Web Pages)</h2>
+      <ul>
+        <li>產製正式 A4 規格計畫書 HTML 排版。</li>
+        <li>優化行動裝置聊天排版，以 Emoji 與段落取代生硬符號。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 第 3 頁：測試計畫、實測結果與誠實未完成檢討 -->
+<div class="page">
+  <h1>6. 測試計畫與驗證情境 (Testing Plan)</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>情境編號</th>
+        <th>測試情境描繪</th>
+        <th>輸入操作</th>
+        <th>預期結果</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>情境一</strong></td>
+        <td>正常對話與格式驗證測試</td>
+        <td>傳送文字：「請用繁體中文解釋什麼是機器學習？」</td>
+        <td>成功解析 Webhook，產出 250~450 字繁中回答，無 <code>**</code> 星號，句尾完整以句號結束，手機正常接收。</td>
+      </tr>
+      <tr>
+        <td><strong>情境二</strong></td>
+        <td>貼圖與純 Emoji 過濾測試</td>
+        <td>聊天室發送貼圖或單一 Emoji「😭」</td>
+        <td>後台日誌正常記錄 <code>StickerMessageContent</code>，<strong>不呼叫 Reply API（已讀不回）</strong>，節省額度且無報錯。</td>
+      </tr>
+      <tr>
+        <td><strong>情境三</strong></td>
+        <td>尖峰流量模型降級備援測試</td>
+        <td>模擬主模型 <code>gemini-flash-latest</code> 回傳 503 繁忙</td>
+        <td>後台自動降級至 <code>gemini-3.8-flash</code> 備援，正常生成文字並回傳，使用者端完全無感。</td>
       </tr>
     </tbody>
   </table>
 
-  <h2>3.2 LINE 聊天場景專屬排版優化</h2>
-  <div class="card card-alert">
-    <strong>Prompt 工程與後處理管線 (Pipeline)：</strong>
+  <h1>7. 目前進度、實測結果與未完成部分檢討</h1>
+
+  <h2>7.1 目前進度與實測成果 (Current Progress & Test Results)</h2>
+  <div class="card card-highlight">
     <ul>
-      <li><strong>長度精準控制</strong>：System Prompt 強制要求將回覆字數收斂於 250 至 450 字之間（絕對上限 500 字）。</li>
-      <li><strong>語意完整不截斷</strong>：將 <code>max_output_tokens</code> 提升至 2048，避免模型輸出到一半斷頭；若輸出偶然超出 500 字，演算法會在倒數最近的句號（<code>。</code>、<code>！</code>、<code>？</code>、換行）進行安全句尾收斂，絕不殘留半句話。</li>
-      <li><strong>去除 Markdown 星號</strong>：LINE 原生聊天室並不直接支援雙星號粗體語法（<code>**文字**</code> 會直接以星號原始字元呈現，造成閱讀雜亂）。程式後處理自動過濾 <code>**</code>，轉化為清晰自然的純文字排版。</li>
-      <li><strong>台灣繁體親切語氣</strong>：預設繁體中文語境，搭配適量親切表情符號（Emoji）與條列條理化呈現。</li>
+      <li><strong>端點健康度</strong>：本地與 Cloudflare 穿透端點 <code>/health</code> 回傳 HTTP 200 JSON，金鑰布林值正常且無外洩。</li>
+      <li><strong>Webhook 驗證</strong>：LINE Developers 後台 Verify 測試通過。</li>
+      <li><strong>對話實測</strong>：手機端文字訊息成功觸發 Gemini 生成，排版符合無粗體星號與字數要求。</li>
+      <li><strong>極端測試驗證</strong>：高頻測試下曾遭遇 Gemini 免費每週配額限制，證實了多模型備援與錯誤訊息回覆機制的健壯性。</li>
     </ul>
   </div>
 
-  <h2>3.3 貼圖與 Emoji 「已讀不回」智慧過濾</h2>
-  <p>為解決聊天室中貼圖導致機器人無意義自言自語或浪費 Gemini API 額度的問題，系統實作了特定事件處理器：</p>
-  <ul>
-    <li>針對 <code>StickerMessageContent</code>：完全攔截，記錄 package ID 與 sticker ID 於伺服器日誌，<strong>不發送回覆請求</strong>。</li>
-    <li>針對純 Emoji 輸入：過濾僅包含表情符號的文字訊息，實現「已讀不回」的自然對話邏輯。</li>
-  </ul>
-</div>
+  <h2>7.2 第一版未完成部分與待改善問題 (Unfinished Parts & Improvement Issues)</h2>
+  <p>為追求卓越工程品質，本報告誠實列出 v1.0 尚未涵蓋之項目與下一階段改善規劃：</p>
 
-<!-- 第 3 頁：穩定性、資安架構與維運 -->
-<div class="page">
-  <h1>4. 系統穩定性與資安防護架構</h1>
-
-  <h2>4.1 跨平台編碼保護 (Windows CP950 UTF-8 修復)</h2>
-  <p>在 Windows 繁體中文環境下，終端機標準輸出預設為 <code>cp950 / Big5</code> 編碼。當 Gemini AI 回覆包含特殊 Emoji 或罕見字元時，會引發 <code>UnicodeEncodeError: 'cp950' codec can't encode character</code> 導致伺服器崩潰。本專案於伺服器初始化前置入了底層重定向防護：</p>
-  <div class="code-block">
-if sys.platform == "win32":
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-  </div>
-
-  <h2>4.2 金鑰隔離與資安規範實踐</h2>
   <div class="grid-2">
-    <div class="card">
-      <h3 style="margin-top:0;">🔒 敏感資訊安全管理</h3>
-      <ul>
-        <li><strong>完全拒絕硬編碼</strong>：所有 Token 與 API Key 均自 <code>.env</code> 讀取。</li>
-        <li><strong>Git 嚴格排除</strong>：<code>.gitignore</code> 明確排除 <code>.env</code> 與 Python 快取，歷史提交經審核無任何金鑰洩漏。</li>
-        <li><strong>範本標準化</strong>：提供 <code>.env.example</code> 供第三方無痛設定。</li>
-      </ul>
+    <div class="card card-amber">
+      <h3 style="margin-top:0;">1. 缺乏多輪上下文記憶 (Stateless)</h3>
+      <p style="font-size:8.5pt;"><strong>現狀：</strong>目前問答皆為單輪獨立運作，機器人無法記憶上一個問題。例如問「推薦台北景點」，緊接著問「那邊有什麼好吃的？」，Bot 無法將兩者關聯。<br>
+      <strong>改善方向：</strong>於 v2.0 引進 Redis 或 SQLite 記錄使用者最近 3~5 輪 Session 歷史。</p>
     </div>
-    <div class="card">
-      <h3 style="margin-top:0;">🛡️ 介面安全與健康度監控</h3>
-      <ul>
-        <li><strong>HMAC 簽章認證</strong>：所有 Webhook 請求強制驗證 <code>X-Line-Signature</code>，無效簽章直接拋出 HTTP 400。</li>
-        <li><strong>無外洩健康檢查</strong>：<code>/health</code> API 僅以布林值 (Boolean) 揭露金鑰配置狀態，不輸出金鑰本體。</li>
-      </ul>
+
+    <div class="card card-amber">
+      <h3 style="margin-top:0;">2. 本地主機依賴與連線中斷風險</h3>
+      <p style="font-size:8.5pt;"><strong>現狀：</strong>目前依賴本地開發機運行 Flask 與 Cloudflare 臨時隧道，一旦電腦關機或進入休眠，機器人即離線無法回覆。<br>
+      <strong>改善方向：</strong>於 v2.0 完成 Docker 容器化封裝，部署至 Google Cloud Run 或 Render 雲端平台。</p>
     </div>
-  </div>
 
-  <h1>5. 維運成本與效益分析</h1>
-  <p>本專案架構達成極致成本控制，無論在開發、測試或小規模營運階段，均具備顯著優勢：</p>
+    <div class="card card-blue">
+      <h3 style="margin-top:0;">3. 缺少 LINE 圖文選單 (Rich Menu)</h3>
+      <p style="font-size:8.5pt;"><strong>現狀：</strong>聊天室底部目前為空白輸入框，缺乏直覺的功能按鈕引導，初次使用者需自行揣摩可發問內容。<br>
+      <strong>改善方向：</strong>設計六宮格圖文選單，提供「日常閒聊」、「旅遊推薦」、「工作靈感」等快捷按鈕。</p>
+    </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>營運維度</th>
-        <th>使用服務 / 架構</th>
-        <th>官方免費額度</th>
-        <th>預估每月成本 (USD)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>AI 運算模型</strong></td>
-        <td>Google Gemini API (Free Tier)</td>
-        <td>15 RPM / 1,500 RPD / 100萬 Tokens/分</td>
-        <td><strong>$0.00</strong></td>
-      </tr>
-      <tr>
-        <td><strong>通訊伺服器</strong></td>
-        <td>LINE Messaging API (Light Plan)</td>
-        <td>回覆訊息（Reply API）完全免費且無上限</td>
-        <td><strong>$0.00</strong></td>
-      </tr>
-      <tr>
-        <td><strong>外部穿透網路</strong></td>
-        <td>Cloudflare Tunnel</td>
-        <td>無限制頻寬與連線時數，內建 SSL 憑證</td>
-        <td><strong>$0.00</strong></td>
-      </tr>
-      <tr>
-        <td><strong>主機託管</strong></td>
-        <td>本機邊緣運算 / 本地端工作站</td>
-        <td>硬體自備，不佔用雲端運算配額</td>
-        <td><strong>$0.00</strong></td>
-      </tr>
-      <tr>
-        <td colspan="3" style="text-align: right; font-weight: bold;">總計每月營運花費：</td>
-        <td style="font-weight: bold; color: #06c755;">$0.00 / 月</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- 第 4 頁：時程驗收與未來展望 -->
-<div class="page">
-  <h1>6. 專案時程與驗收成果</h1>
-
-  <div class="card card-highlight">
-    <div class="metric-box" style="display: flex; justify-content: space-around; background: transparent; border: none;">
-      <div>
-        <div class="metric-num">100%</div>
-        <div class="metric-label">功能達成率</div>
-      </div>
-      <div>
-        <div class="metric-num">&lt; 1.8s</div>
-        <div class="metric-label">平均 AI 回應延遲</div>
-      </div>
-      <div>
-        <div class="metric-num">0 次</div>
-        <div class="metric-label">Emoji 編碼崩潰</div>
-      </div>
-      <div>
-        <div class="metric-num">0 元</div>
-        <div class="metric-label">雲端月費支出</div>
-      </div>
+    <div class="card card-blue">
+      <h3 style="margin-top:0;">4. 尚未支援多模態圖片識別</h3>
+      <p style="font-size:8.5pt;"><strong>現狀：</strong>使用者傳送照片時會被忽略，尚未串接 Gemini Vision 進行影像分析。<br>
+      <strong>改善方向：</strong>加入 <code>ImageMessageContent</code> 處理器，支援上傳照片進行 OCR 或內容辨識。</p>
     </div>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>開發階段</th>
-        <th>主要工作內容</th>
-        <th>完成狀態</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>階段一：原型建置</strong></td>
-        <td>建立 Flask 伺服器、申請 LINE Developers 金鑰、實作 Echo 回音測試</td>
-        <td><span class="tag tag-green">已完成</span></td>
-      </tr>
-      <tr>
-        <td><strong>階段二：AI 核心導入</strong></td>
-        <td>整合 Google Gemini 官方 SDK，調校繁中 Prompt 與多模型備援佇列</td>
-        <td><span class="tag tag-green">已完成</span></td>
-      </tr>
-      <tr>
-        <td><strong>階段三：邊界與穩定度優化</strong></td>
-        <td>貼圖過濾、Windows CP950 編碼修復、500 字長度控制與星號清洗</td>
-        <td><span class="tag tag-green">已完成</span></td>
-      </tr>
-      <tr>
-        <td><strong>階段四：資安查核與開源發布</strong></td>
-        <td>安全性審查、金鑰防漏驗證、建立 GitHub 儲存庫並完成初版推送</td>
-        <td><span class="tag tag-green">已完成</span></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h1>7. 後續版本擴充藍圖 (Roadmap v2.0 & v3.0)</h1>
-  <div class="grid-2">
-    <div class="card">
-      <h3 style="margin-top:0; color:#06c755;">🚀 v2.0 預計升級重點</h3>
-      <ul>
-        <li><strong>圖文選單 (Rich Menu)</strong>：建立客製化九宮格選單，提供「快速指令」、「天氣查詢」、「日常閒聊」等直覺點選功能。</li>
-        <li><strong>多輪對話記憶 (Session Context)</strong>：導入輕量級 SQLite 或 Redis 快取，支援上下文連續問答（例如：「上個問題中提到的...」）。</li>
-        <li><strong>多模態圖片理解</strong>：接收使用者上傳的照片，調用 Gemini Vision 能力進行圖文識別與影像分析。</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3 style="margin-top:0; color:#3b82f6;">🌐 v3.0 雲端與自動化擴展</h3>
-      <ul>
-        <li><strong>雲端無伺服器託管</strong>：將 Flask 容器化部署至 Google Cloud Run 或 Render，擺脫本地電腦持續開機需求。</li>
-        <li><strong>用戶權限分級</strong>：區分公開使用者與管理員身分，管理員可透過指令查詢後台運行指標與 Token 消耗量。</li>
-        <li><strong>自訂知識庫 (RAG)</strong>：連接外部 PDF 或 Google Docs 打造專屬企業或學術領域專家 Bot。</li>
-      </ul>
-    </div>
-  </div>
-
-  <div style="margin-top: 35px; text-align: center; color: #94a3b8; font-size: 9pt; border-top: 1px solid #e2e8f0; padding-top: 15px;">
-    LINE Bot with Gemini AI v1.0 專案計畫書 • 著作權所有 2026 • 專案儲存庫：https://github.com/41154B003Sam/line-bot
+  <div style="margin-top: 15px; text-align: center; color: #94a3b8; font-size: 8.5pt;">
+    智聊小精靈 (Gemini Smart Bot) v1.0 專案計畫書 • 著作權所有 2026 • GitHub: 41154B003Sam/line-bot
   </div>
 </div>
 

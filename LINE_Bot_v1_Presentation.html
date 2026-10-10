@@ -2,10 +2,10 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>LINE Bot v1.0 成果與架構簡報 (Presentation Slides)</title>
+<title>LINE Bot v1.0 專案規劃與成果簡報</title>
 <style>
   @page {
-    size: 297mm 167mm; /* 16:9 比例 */
+    size: 297mm 167mm; /* 標準 16:9 比例 */
     margin: 0;
   }
 
@@ -19,14 +19,14 @@
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
-    background-color: #0b0f19;
-    color: #f8fafc;
+    background-color: #090d16;
+    color: #f1f5f9;
   }
 
   .slide {
     width: 297mm;
     height: 167mm;
-    padding: 16mm 20mm;
+    padding: 15mm 20mm 13mm 20mm;
     page-break-after: always;
     break-after: page;
     display: flex;
@@ -34,7 +34,7 @@
     justify-content: space-between;
     position: relative;
     overflow: hidden;
-    background: radial-gradient(circle at 90% 10%, rgba(6, 199, 85, 0.08) 0%, rgba(11, 15, 25, 1) 70%);
+    background: radial-gradient(circle at 85% 15%, rgba(6, 199, 85, 0.09) 0%, rgba(9, 13, 22, 1) 70%);
   }
 
   .slide:last-child {
@@ -48,22 +48,23 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 10px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
   }
 
   .slide-badge {
     background: rgba(6, 199, 85, 0.15);
     color: #06c755;
     border: 1px solid rgba(6, 199, 85, 0.4);
-    font-size: 10pt;
+    font-size: 9.5pt;
     font-weight: 700;
-    padding: 4px 12px;
+    padding: 3px 12px;
     border-radius: 12px;
     letter-spacing: 0.5px;
   }
 
   .slide-category {
-    font-size: 11pt;
+    font-size: 10.5pt;
     color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -72,17 +73,17 @@
 
   /* Titles */
   .slide-title {
-    font-size: 26pt;
+    font-size: 24pt;
     font-weight: 800;
     color: #ffffff;
-    margin: 10px 0 4px 0;
+    margin: 0 0 4px 0;
     letter-spacing: -0.5px;
   }
 
   .slide-subtitle {
-    font-size: 12.5pt;
+    font-size: 12pt;
     color: #94a3b8;
-    margin: 0 0 16px 0;
+    margin: 0 0 12px 0;
   }
 
   /* Main Body */
@@ -99,12 +100,12 @@
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 10px;
-    font-size: 9pt;
+    padding-top: 8px;
+    font-size: 8.5pt;
     color: #64748b;
   }
 
-  /* Cards & Grids */
+  /* Grids & Cards */
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -120,162 +121,177 @@
   .grid-4 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 14px;
+    gap: 12px;
   }
 
   .card {
-    background: rgba(30, 41, 59, 0.7);
+    background: rgba(22, 30, 46, 0.75);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    padding: 16px;
-    backdrop-filter: blur(10px);
+    padding: 15px 18px;
+    backdrop-filter: blur(8px);
   }
 
   .card-highlight {
-    border-color: rgba(6, 199, 85, 0.5);
-    background: linear-gradient(135deg, rgba(6, 199, 85, 0.1) 0%, rgba(30, 41, 59, 0.8) 100%);
+    border-color: rgba(6, 199, 85, 0.45);
+    background: linear-gradient(135deg, rgba(6, 199, 85, 0.1) 0%, rgba(22, 30, 46, 0.85) 100%);
   }
 
   .card-blue {
-    border-color: rgba(66, 133, 244, 0.5);
-    background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(30, 41, 59, 0.8) 100%);
+    border-color: rgba(66, 133, 244, 0.45);
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(22, 30, 46, 0.85) 100%);
   }
 
   .card-amber {
-    border-color: rgba(245, 158, 11, 0.5);
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(30, 41, 59, 0.8) 100%);
+    border-color: rgba(245, 158, 11, 0.45);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(22, 30, 46, 0.85) 100%);
+  }
+
+  .card-purple {
+    border-color: rgba(168, 85, 247, 0.45);
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(22, 30, 46, 0.85) 100%);
+  }
+
+  .card-rose {
+    border-color: rgba(244, 63, 94, 0.45);
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.1) 0%, rgba(22, 30, 46, 0.85) 100%);
   }
 
   .card-title {
-    font-size: 13pt;
+    font-size: 12.5pt;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
   .card-desc {
-    font-size: 10pt;
+    font-size: 9.5pt;
     color: #cbd5e1;
     line-height: 1.55;
   }
 
-  .stat-num {
-    font-size: 30pt;
-    font-weight: 800;
-    color: #06c755;
-    line-height: 1;
-    margin-bottom: 4px;
+  /* Chat bubble styling */
+  .chat-container {
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .stat-label {
-    font-size: 9.5pt;
-    color: #94a3b8;
-    font-weight: 600;
-  }
-
-  /* Timeline / Steps */
-  .step-box {
-    background: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 12px 14px;
-    position: relative;
-  }
-
-  .step-num {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
+  .bubble-user {
+    align-self: flex-end;
     background: #06c755;
-    color: #0b0f19;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 24px;
-    font-weight: 800;
-    font-size: 9pt;
-    margin-bottom: 6px;
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 16px 16px 2px 16px;
+    font-size: 9.5pt;
+    max-width: 85%;
+    line-height: 1.45;
   }
 
-  /* Architecture diagram */
-  .arch-box {
-    background: #0f172a;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    padding: 14px;
-    text-align: center;
-    font-size: 9.5pt;
-    color: #e2e8f0;
+  .bubble-bot {
+    align-self: flex-start;
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+    padding: 10px 14px;
+    border-radius: 16px 16px 16px 2px;
+    font-size: 9pt;
+    max-width: 90%;
+    line-height: 1.5;
+    white-space: pre-line;
   }
+
+  .user-label, .bot-label {
+    font-size: 8pt;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .user-label { text-align: right; color: #86efac; }
+  .bot-label { color: #38bdf8; }
 
   ul {
-    margin: 6px 0;
+    margin: 4px 0;
     padding-left: 18px;
-    font-size: 10pt;
+    font-size: 9.5pt;
     color: #cbd5e1;
   }
 
   li {
-    margin-bottom: 5px;
+    margin-bottom: 4px;
   }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 8pt;
+    font-weight: 700;
+  }
+  .tag-green { background: rgba(6, 199, 85, 0.2); color: #06c755; border: 1px solid rgba(6, 199, 85, 0.4); }
+  .tag-blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+  .tag-amber { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+  .tag-rose { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
 </style>
 </head>
 <body>
 
-<!-- Slide 1: 封面 -->
-<div class="slide" style="justify-content: center; text-align: center; background: radial-gradient(circle at 50% 40%, rgba(6, 199, 85, 0.15) 0%, rgba(11, 15, 25, 1) 75%);">
-  <div style="margin-bottom: 15px;">
-    <span class="slide-badge" style="font-size: 11pt; padding: 6px 18px;">PROJECT RELEASE v1.0.0</span>
+<!-- Slide 1: 封面與題目名稱 (Topic Title) -->
+<div class="slide" style="justify-content: center; text-align: center; background: radial-gradient(circle at 50% 40%, rgba(6, 199, 85, 0.15) 0%, rgba(9, 13, 22, 1) 75%);">
+  <div style="margin-bottom: 12px;">
+    <span class="slide-badge" style="font-size: 11pt; padding: 6px 18px;">LINE BOT v1.0 專案發表與架構審查</span>
   </div>
-  <div style="font-size: 36pt; font-weight: 900; color: #ffffff; letter-spacing: -1px; line-height: 1.2; margin-bottom: 12px;">
-    LINE Bot 智慧 AI 助理
+  <div style="font-size: 34pt; font-weight: 900; color: #ffffff; letter-spacing: -1px; line-height: 1.2; margin-bottom: 8px;">
+    【主題名稱】智聊小精靈 (Gemini Smart Bot)
   </div>
-  <div style="font-size: 18pt; color: #06c755; font-weight: 600; margin-bottom: 24px;">
-    基於 Google Gemini 模型之繁體中文對話機器人
+  <div style="font-size: 18pt; color: #06c755; font-weight: 600; margin-bottom: 20px;">
+    基於 Google Gemini 模型之繁體中文生活智慧對話助理
   </div>
-  <div style="max-width: 800px; margin: 0 auto 30px auto; font-size: 11.5pt; color: #94a3b8; line-height: 1.6;">
-    整合 LINE Messaging API v3、動態模型自動備援、500 字安全句尾截斷、貼圖已讀不回與 100% 零維運成本架構
+  <div style="max-width: 820px; margin: 0 auto 28px auto; font-size: 11pt; color: #94a3b8; line-height: 1.6;">
+    具備端到端非同步通訊、四重模型自動降級備援、500字安全句尾截斷、排版去星號清洗與貼圖已讀不回機制，實現 100% 零維運成本的對話助手。
   </div>
 
   <div style="display: flex; justify-content: center; gap: 40px; font-size: 10pt; color: #64748b;">
     <div><strong>發表者：</strong> 41154B003Sam</div>
-    <div><strong>技術棧：</strong> Python / Flask / Gemini API / Cloudflare</div>
-    <div><strong>開源網址：</strong> github.com/41154B003Sam/line-bot</div>
+    <div><strong>技術架構：</strong> Python / Flask 3.1 / LINE SDK v3 / Gemini API</div>
+    <div><strong>儲存庫：</strong> github.com/41154B003Sam/line-bot</div>
   </div>
 </div>
 
-<!-- Slide 2: 專案動機與演進 -->
+<!-- Slide 2: 目標客群與目的 (Target Audience and Purpose) -->
 <div class="slide">
   <div class="slide-header">
-    <span class="slide-category">Project Motivation & Evolution</span>
-    <span class="slide-badge">階段演進歷程</span>
+    <span class="slide-category">Target Audience & Purpose</span>
+    <span class="slide-badge">需求與痛點分析</span>
   </div>
   <div>
-    <div class="slide-title">從鸚鵡學舌 (Echo) 到智慧 AI 助理</div>
-    <div class="slide-subtitle">為了解決傳統 Bot 缺乏實用功能與雲端高額費用的兩大痛點</div>
+    <div class="slide-title">目標客群與欲解決的核心問題</div>
+    <div class="slide-subtitle">誰會使用這個 LINE Bot？它致力於解決什麼痛點？</div>
   </div>
 
   <div class="slide-body">
     <div class="grid-2">
-      <div class="card">
-        <div class="card-title" style="color: #ef4444;">❌ 傳統面臨的痛點與限制</div>
+      <div class="card card-blue">
+        <div class="card-title">👥 目標客群 (Target Audience)</div>
         <ul>
-          <li><strong>回音機器人無實質價值</strong>：單純 Echo 複製訊息，無法回答知識與生活問題。</li>
-          <li><strong>AI Token 配額枯竭</strong>：呼叫單一模型常遭遇 503 伺服器繁忙，直接中斷回應。</li>
-          <li><strong>手機排版體驗不良</strong>：Markdown <code>**</code> 星號雜亂、回答過長導致斷句或洗版。</li>
-          <li><strong>貼圖引發無意義回覆</strong>：用戶發貼圖時機器人胡亂回話，耗損 API 額度。</li>
+          <li><strong>LINE 高頻度日常使用者</strong>：習慣以 LINE 作為主要通訊介面的學生、上班族與長輩。</li>
+          <li><strong>需要即時獲取知識與生活靈感者</strong>：希望不離開通訊軟體，就能快速查詢旅遊景點、美食建議、文案撰寫或名詞解釋。</li>
+          <li><strong>偏好極簡且無廣告干擾者</strong>：厭倦複雜 App 下載或充斥推播廣告的商業公眾號，追求純粹的一對一 AI 問答。</li>
         </ul>
       </div>
 
       <div class="card card-highlight">
-        <div class="card-title" style="color: #06c755;">✨ v1.0 提供的全方位解法</div>
+        <div class="card-title">🎯 欲解決的核心問題 (Problem Solved)</div>
         <ul>
-          <li><strong>Google Gemini 官方 SDK 賦能</strong>：提供即時推理能力，聰明回答各類問題。</li>
-          <li><strong>四重模型自動降級 (Fallback Chain)</strong>：尖峰時刻無縫切換備援模型。</li>
-          <li><strong>專屬繁中 Prompt 與安全截斷</strong>：嚴控 500 字以內，並於句號處自然收尾。</li>
-          <li><strong>貼圖/純表情已讀不回</strong>：符合真人社交習慣，節省大量運算資源。</li>
+          <li><strong>解決跨 App 查詢之摩擦力</strong>：免開啟瀏覽器或特製 AI 工具，在日常 LINE 聊天室內即可隨時召喚 AI 助理。</li>
+          <li><strong>告別死板關鍵字與鸚鵡學舌 (Echo)</strong>：突破傳統機器人只能關鍵字匹配或機械式覆誦的限制，賦予真正的自然語意理解能力。</li>
+          <li><strong>消除長篇大論與格式混亂</strong>：傳統 AI 容易輸出過長字串或在手機上顯示突兀的 Markdown 粗體星號，本助理專門針對手機螢幕做閱讀收斂。</li>
         </ul>
       </div>
     </div>
@@ -283,375 +299,361 @@
 
   <div class="slide-footer">
     <span>LINE Bot v1.0 成果報告</span>
-    <span>Slide 02</span>
+    <span>Slide 02 • 目標與定位</span>
   </div>
 </div>
 
-<!-- Slide 3: 系統總體架構 -->
+<!-- Slide 3: 核心功能 (Core Function) -->
 <div class="slide">
   <div class="slide-header">
-    <span class="slide-category">System Architecture</span>
-    <span class="slide-badge">全鏈路拓撲</span>
+    <span class="slide-category">Core Functionality</span>
+    <span class="slide-badge">技術深度剖析</span>
   </div>
   <div>
-    <div class="slide-title">端到端系統架構與資料流向</div>
-    <div class="slide-subtitle">高安全性、非同步事件驅動與零設定穿透設計</div>
+    <div class="slide-title">本次核心功能：繁中語意問答與排版收斂引擎</div>
+    <div class="slide-subtitle">深入詳述第一版（v1.0）所實作的旗艦級核心機制</div>
   </div>
 
   <div class="slide-body">
     <div class="grid-4" style="margin-bottom: 12px;">
-      <div class="step-box">
-        <div class="step-num">1</div>
-        <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">使用者手機</div>
-        <div style="font-size: 8.5pt; color: #94a3b8;">透過 LINE App 發送繁體中文文字或貼圖</div>
+      <div class="card card-highlight">
+        <div class="card-title" style="font-size:11pt;">🧠 Gemini 整合</div>
+        <div class="card-desc">以 Google 官方 <code>google-genai</code> SDK 驅動，設定繁體中文台灣語境與熱心幽默角色提示。</div>
       </div>
-      <div class="step-box">
-        <div class="step-num">2</div>
-        <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">LINE 雲端節點</div>
-        <div style="font-size: 8.5pt; color: #94a3b8;">封裝 Webhook 事件並附帶 HMAC 簽章 POST 轉發</div>
+
+      <div class="card card-blue">
+        <div class="card-title" style="font-size:11pt;">🔄 四重模型降級</div>
+        <div class="card-desc"><code>gemini-flash-latest</code> ➜ <code>gemini-3.8-flash</code> ➜ <code>gemini-3.5-flash</code> ➜ <code>gemini-flash-lite</code>，無懼 503 限流。</div>
       </div>
-      <div class="step-box">
-        <div class="step-num">3</div>
-        <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">Cloudflare 隧道</div>
-        <div style="font-size: 8.5pt; color: #94a3b8;">免費提供邊緣 HTTPS 路由穿透至本機 5000 埠</div>
+
+      <div class="card card-amber">
+        <div class="card-title" style="font-size:11pt;">✂️ 句尾安全截斷</div>
+        <div class="card-desc">嚴格將內容控制在 500 字內，若超長則在倒數最近的標點（<code>。</code>、<code>！</code>、<code>？</code>）完整收尾，絕不留下半句。</div>
       </div>
-      <div class="step-box">
-        <div class="step-num">4</div>
-        <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">Flask 伺服器</div>
-        <div style="font-size: 8.5pt; color: #94a3b8;">驗證簽章、分析事件、調度 Gemini 並呼叫 Reply API</div>
+
+      <div class="card card-purple">
+        <div class="card-title" style="font-size:11pt;">🧹 排版星號清洗</div>
+        <div class="card-desc">全面去除 LINE 不支援的 <code>**</code> 粗體符號，轉化為親切 Emoji 與換行條列，維持手機版面清爽。</div>
       </div>
     </div>
 
-    <div class="arch-box">
-      <strong>資料流管線：</strong>
-      LINE Client ➔ Messaging API Webhook ➔ Cloudflare Tunnel ➔ Flask (app.py) ➔ Gemini API (LLM) ➔ ReplyMessageRequest ➔ 使用者即時顯示
+    <div class="card" style="background: rgba(15, 23, 42, 0.7);">
+      <div style="font-weight: 700; color: #38bdf8; font-size: 10pt; margin-bottom: 4px;">⚙️ 核心處理管線 (Pipeline)：</div>
+      <div style="font-size: 9pt; color: #cbd5e1;">
+        Webhook 接收文字 ➔ 驗證簽章 ➔ 調度 Gemini 生成 (<code>max_output_tokens=2048</code>) ➔ 移除 <code>**</code> ➔ 字數邊界檢查與句號截斷 ➔ 回傳 LINE Reply API。
+      </div>
     </div>
   </div>
 
   <div class="slide-footer">
     <span>LINE Bot v1.0 成果報告</span>
-    <span>Slide 03</span>
+    <span>Slide 03 • 核心功能詳解</span>
   </div>
 </div>
 
-<!-- Slide 4: AI 模型與備援機制 -->
+<!-- Slide 4: 對話範例 (Dialogue Examples) -->
 <div class="slide">
   <div class="slide-header">
-    <span class="slide-category">AI Engine & Fallback Strategy</span>
-    <span class="slide-badge">高可用性設計</span>
+    <span class="slide-category">Dialogue Examples</span>
+    <span class="slide-badge">實際對話展示</span>
   </div>
   <div>
-    <div class="slide-title">Google Gemini 智慧整合與四重模型備援</div>
-    <div class="slide-subtitle">消弭免費版在高流量時的 503 服務拒絕風險</div>
+    <div class="slide-title">對話範例：正常使用與輸入不完整情境</div>
+    <div class="slide-subtitle">展示 Bot 在兩種真實情境下的反應與自然引導能力</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-2">
+      <!-- 範例 A: 正常情境 -->
+      <div class="card">
+        <div style="font-weight: 700; color: #06c755; margin-bottom: 8px; font-size: 10.5pt;">
+          🟢 組一：正常使用情境 (完整詢問旅遊景點)
+        </div>
+        <div class="chat-container">
+          <div>
+            <div class="user-label">使用者 (User)</div>
+            <div class="bubble-user">我想在週末安排台北一日遊，請推薦 3 個搭捷運能到的景點和美食！</div>
+          </div>
+          <div>
+            <div class="bot-label">智聊小精靈 (Bot)</div>
+            <div class="bubble-bot">嗨！沒問題，為你精選 3 個搭捷運就能輕鬆抵達的台北一日遊好去處 🚇✨
+
+1. 中山站赤峰街：漫步文青巷弄小店與老宅咖啡廳，推薦品嚐排隊甜點戚風蛋糕 🍰
+2. 大安森林公園站：享受都市森林綠意，野餐放鬆，還能順道漫步永康街吃牛肉麵 🍜
+3. 淡水站金色水岸：傍晚漫步淡水河畔看浪漫夕陽，必吃現炸魚酥與阿給小吃 🌅
+
+這條路線交通非常順暢，很適合週末放慢步調散步放鬆喔！祝你有個愉快充實的週末～😊</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 範例 B: 輸入不完整 -->
+      <div class="card">
+        <div style="font-weight: 700; color: #fbbf24; margin-bottom: 8px; font-size: 10.5pt;">
+          🟡 組二：輸入不完整 / 模糊情境 (主動追問釐清)
+        </div>
+        <div class="chat-container">
+          <div>
+            <div class="user-label">使用者 (User)</div>
+            <div class="bubble-user">推薦</div>
+          </div>
+          <div>
+            <div class="bot-label">智聊小精靈 (Bot)</div>
+            <div class="bubble-bot">哈囉！看到你發送了簡短的關鍵字，我猜你可能是想尋找推薦？😄
+
+為了提供最符合你需求的精準建議，可以再多告訴我一點線索嗎：
+• 🍽️ 美食晚餐推薦：想找平價小吃、精緻火鍋、日式料理還是聚餐餐廳？地點在哪個區域？
+• 🎬 休閒娛樂推薦：想看熱門電影、推薦書籍、還是週末旅遊踏青景點？
+• 📱 科技生活推薦：想了解 3C 產品還是實用 App 工具？
+
+只要隨時補充你的預算或地點，我就能馬上為你量身推薦囉！隨時等你的訊息～✨</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>LINE Bot v1.0 成果報告</span>
+    <span>Slide 04 • 對話展示</span>
+  </div>
+</div>
+
+<!-- Slide 5: AI 輔助方式 (AI Assistance Methods) -->
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-category">AI Assistance Methods</span>
+    <span class="slide-badge">全流程賦能</span>
+  </div>
+  <div>
+    <div class="slide-title">AI 在本專案中的輔助方式與任務規劃</div>
+    <div class="slide-subtitle">我們如何透過 AI 助理加速研發、除錯與簡報製作</div>
   </div>
 
   <div class="slide-body">
     <div class="grid-4">
       <div class="card card-highlight">
-        <div style="font-size: 9pt; color: #06c755; font-weight: 700; margin-bottom: 4px;">第一優先 (Primary)</div>
-        <div style="font-size: 12pt; font-weight: 800; color: #fff; margin-bottom: 6px;">gemini-flash-latest</div>
-        <div class="card-desc">最新正式版 Flash，速度快、語意理解最佳，負責 90% 以上日常查詢。</div>
+        <div class="card-title" style="font-size:11pt;">💻 程式撰寫<br>(Programming)</div>
+        <div class="card-desc">
+          • 撰寫 Flask 與 LINE SDK v3 伺服器架構<br>
+          • 整合 Google GenAI 官方推論客戶端<br>
+          • 實作後處理清洗管線與字數安全演算法
+        </div>
+      </div>
+
+      <div class="card card-rose">
+        <div class="card-title" style="font-size:11pt;">🐞 除錯調校<br>(Debugging)</div>
+        <div class="card-desc">
+          • 診斷並修復 Windows CP950 終端 Emoji 崩潰<br>
+          • 捕捉 Gemini 503 限流異常並實作自動降級<br>
+          • 解決 LINE Webhook HMAC 簽章驗證失敗
+        </div>
       </div>
 
       <div class="card card-blue">
-        <div style="font-size: 9pt; color: #60a5fa; font-weight: 700; margin-bottom: 4px;">第二順位 (Backup 1)</div>
-        <div style="font-size: 12pt; font-weight: 800; color: #fff; margin-bottom: 6px;">gemini-3.8-flash</div>
-        <div class="card-desc">最新架構預覽版，當主模型遭遇流量尖峰限流時自動接管。</div>
+        <div class="card-title" style="font-size:11pt;">📊 簡報產出<br>(Presentations)</div>
+        <div class="card-desc">
+          • 規劃 16:9 投影片架構與邏輯脈絡<br>
+          • 自動生成現代高對比深色 CSS 排版<br>
+          • 透過無頭瀏覽器自動輸出印刷級 PDF
+        </div>
       </div>
 
       <div class="card card-amber">
-        <div style="font-size: 9pt; color: #fbbf24; font-weight: 700; margin-bottom: 4px;">第三順位 (Backup 2)</div>
-        <div style="font-size: 12pt; font-weight: 800; color: #fff; margin-bottom: 6px;">gemini-3.5-flash</div>
-        <div class="card-desc">經典穩定版本，提供高可靠的常規回答，作為第二道保險。</div>
+        <div class="card-title" style="font-size:11pt;">🌐 網頁與 UX<br>(Web & Layout)</div>
+        <div class="card-desc">
+          • 撰寫 A4 正式規格專案計畫書 HTML 結構<br>
+          • 針對手機聊天畫面優化字距與空白<br>
+          • 製作清晰可讀的 GitHub Markdown 文件
+        </div>
       </div>
-
-      <div class="card">
-        <div style="font-size: 9pt; color: #c084fc; font-weight: 700; margin-bottom: 4px;">第四順位 (Last Resort)</div>
-        <div style="font-size: 12pt; font-weight: 800; color: #fff; margin-bottom: 6px;">gemini-flash-lite</div>
-        <div class="card-desc">超輕量化版本，超低資源消耗，確保終極極端狀態仍能發送回覆。</div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top: 12px; background: rgba(15, 23, 42, 0.6);">
-      <div style="font-weight: 700; color: #38bdf8; font-size: 10.5pt; margin-bottom: 4px;">🛡️ 容錯切換演算法 (Try-Catch Multi-Model Loop)</div>
-      <div style="font-size: 9.5pt; color: #cbd5e1;">若當前模型拋出異常（如 503 Service Unavailable），伺服器將記錄警告日誌並無縫進入下一個備用模型，對使用者完全透明無感。</div>
     </div>
   </div>
 
   <div class="slide-footer">
     <span>LINE Bot v1.0 成果報告</span>
-    <span>Slide 04</span>
+    <span>Slide 05 • AI 協作任務</span>
   </div>
 </div>
 
-<!-- Slide 5: LINE 用戶體驗優化 -->
+<!-- Slide 6: 測試計畫 (Testing Plan) -->
 <div class="slide">
   <div class="slide-header">
-    <span class="slide-category">User Experience Engineering</span>
-    <span class="slide-badge">手機端優化</span>
+    <span class="slide-category">Testing Plan</span>
+    <span class="slide-badge">品質驗證</span>
   </div>
   <div>
-    <div class="slide-title">針對手機通訊場景的排版演算法</div>
-    <div class="slide-subtitle">打造最適合 LINE 聊天介面瀏覽的清爽閱讀體驗</div>
+    <div class="slide-title">測試計畫：三大測試情境與預期結果</div>
+    <div class="slide-subtitle">確保服務在不同輸入與環境下皆具備高可靠度</div>
   </div>
 
   <div class="slide-body">
     <div class="grid-3">
       <div class="card">
-        <div class="card-title">📏 長度精準控制</div>
+        <div style="font-weight: 700; color: #06c755; margin-bottom: 6px;">情境一：正常對話與格式驗證測試</div>
         <div class="card-desc">
-          • 規範 250 ~ 450 字黃金閱讀區間<br>
-          • 嚴格禁止超過 500 字長篇大論<br>
-          • <code>max_output_tokens=2048</code> 防止 token 不足半句斷掉
+          <strong>測試操作：</strong><br>
+          使用者發送日常問題：「請用繁體中文解釋什麼是機器學習？」<br><br>
+          <strong>預期結果：</strong><br>
+          • 伺服器成功解析 Webhook 並呼叫 Gemini<br>
+          • 回覆字數落在 250 ~ 450 字之間<br>
+          • 無任何 <code>**</code> 粗體星號，句尾以句號完整結束<br>
+          • LINE App 順利收到流暢繁中訊息
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">✂️ 安全句尾邊界截斷</div>
+        <div style="font-weight: 700; color: #fbbf24; margin-bottom: 6px;">情境二：貼圖與純 Emoji 過濾測試</div>
         <div class="card-desc">
-          • 若輸出意外超過 500 字上限<br>
-          • 尋找末尾最近的 <code>。</code>、<code>！</code>、<code>？</code><br>
-          • 保持句子文法完整收尾，絕不留下殘缺字詞
+          <strong>測試操作：</strong><br>
+          使用者於聊天室傳送一張哭臉貼圖或發送純表情符號「😭」。<br><br>
+          <strong>預期結果：</strong><br>
+          • 伺服器記錄 <code>StickerMessageContent</code> 或純表情 Log<br>
+          • <strong>不呼叫 Reply API，已讀不回</strong><br>
+          • 不浪費 Gemini API 額度<br>
+          • 聊天室安靜無多餘報錯
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">🧹 Markdown 星號過濾</div>
+        <div style="font-weight: 700; color: #60a5fa; margin-bottom: 6px;">情境三：尖峰流量模型自動降級測試</div>
         <div class="card-desc">
-          • LINE 聊天室無法直接解析 <code>**粗體**</code><br>
-          • 後處理管線全面清洗雙星號<br>
-          • 改採段落留白與親切 Emoji 呈現結構
+          <strong>測試操作：</strong><br>
+          模擬主模型 <code>gemini-flash-latest</code> 遭遇 503 伺服器繁忙限流。<br><br>
+          <strong>預期結果：</strong><br>
+          • 系統捕捉異常並於日誌打印 Warning<br>
+          • 無縫切換至 <code>gemini-3.8-flash</code> 備援模型<br>
+          • 使用者端完全無感，依然正常收到回覆<br>
+          • 服務不中斷、不報 500 內部錯誤
         </div>
-      </div>
-    </div>
-
-    <div class="card card-highlight" style="margin-top: 14px;">
-      <div style="font-weight: 700; color: #06c755; margin-bottom: 4px;">💬 實際對話風格實例：</div>
-      <div style="font-size: 9.5pt; color: #e2e8f0; font-style: italic;">
-        「嗨！今天台北天氣晴朗，氣溫約 26 度，非常適合出門走走散步喔！記得多補充水分～☀️ 如果有任何旅遊或工作規劃，隨時跟我說！」
-      </div>
-    </div>
-  </div>
-
-  <div class="slide-footer">
-    <span>LINE Bot v1.0 成果報告</span>
-    <span>Slide 05</span>
-  </div>
-</div>
-
-<!-- Slide 6: 異常防護與邊界條件 -->
-<div class="slide">
-  <div class="slide-header">
-    <span class="slide-category">Robustness & Edge Cases</span>
-    <span class="slide-badge">穩定性工程</span>
-  </div>
-  <div>
-    <div class="slide-title">特殊訊息攔截與跨平台編碼防護</div>
-    <div class="slide-subtitle">消除導致伺服器崩潰的環境限制與非典型輸入</div>
-  </div>
-
-  <div class="slide-body">
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title" style="color: #38bdf8;">👾 貼圖與 Emoji 「已讀不回」設計</div>
-        <ul>
-          <li><strong>StickerMessageContent 專屬處理器</strong>：接收貼圖事件後僅於背景記錄 ID，不觸發 LINE Reply 回覆。</li>
-          <li><strong>純表情符號過濾</strong>：若文字僅包含 <code>(emoji)</code> 或 Unicode 圖標，直接返回忽略。</li>
-          <li><strong>效益</strong>：大幅節省每月 API 呼叫配額，同時符合真人社交習慣（已讀貼圖無需回話）。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="card-title" style="color: #a855f7;">💻 Windows 繁中 CP950 編碼修復</div>
-        <ul>
-          <li><strong>崩潰根因</strong>：Windows 終端機預設使用 Big5 / CP950，列印 Gemini 輸出的多位元組 Emoji 會直接造成致命例外崩潰。</li>
-          <li><strong>底層注入修復</strong>：
-            <div style="background:#0f172a; padding:6px 10px; border-radius:6px; font-family:monospace; font-size:8.5pt; margin-top:4px;">
-              sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-            </div>
-          </li>
-          <li><strong>成果</strong>：無論終端列印任何特殊符號，伺服器均維持 100% 穩定常駐。</li>
-        </ul>
       </div>
     </div>
   </div>
 
   <div class="slide-footer">
     <span>LINE Bot v1.0 成果報告</span>
-    <span>Slide 06</span>
+    <span>Slide 06 • 測試驗收規範</span>
   </div>
 </div>
 
-<!-- Slide 7: 資安架構與成本分析 -->
+<!-- Slide 7: 誠實進度審查：目前進度與實測結果 -->
 <div class="slide">
   <div class="slide-header">
-    <span class="slide-category">Security & Cost Matrix</span>
-    <span class="slide-badge">零成本與零外洩</span>
+    <span class="slide-category">Progress & Test Results</span>
+    <span class="slide-badge">實況審查</span>
   </div>
   <div>
-    <div class="slide-title">資安防護機制與 100% 零維運成本</div>
-    <div class="slide-subtitle">嚴格保護開發者機密，並實現零支出永續運行</div>
+    <div class="slide-title">第一版實測進度與測試結果審查</div>
+    <div class="slide-subtitle">誠實揭露當前系統完成度與真實環境實測指標</div>
   </div>
 
   <div class="slide-body">
     <div class="grid-2">
-      <div class="card">
-        <div class="card-title">🔐 資安規範落地</div>
-        <ul>
-          <li><strong>.env 實體隔離</strong>：機密金鑰不進程式碼，<code>.gitignore</code> 嚴格排除。</li>
-          <li><strong>Webhook 數位簽章</strong>：驗證 <code>X-Line-Signature</code>，杜絕偽造攻擊。</li>
-          <li><strong>安全健康檢查</strong>：<code>/health</code> API 僅以布林值確認配置，不暴露內容。</li>
-          <li><strong>GitHub 歷史審核</strong>：Push 驗證通過，零歷史密鑰殘留。</li>
-        </ul>
-      </div>
-
       <div class="card card-highlight">
-        <div class="card-title">💰 零成本營運矩陣</div>
-        <div class="grid-2" style="margin-top: 10px;">
-          <div>
-            <div class="stat-num">$0</div>
-            <div class="stat-label">Google Gemini API (免費額度充足)</div>
-          </div>
-          <div>
-            <div class="stat-num">$0</div>
-            <div class="stat-label">LINE Messaging Reply (免費無限量)</div>
-          </div>
-          <div>
-            <div class="stat-num">$0</div>
-            <div class="stat-label">Cloudflare Tunnel (全球 CDN 穿透)</div>
-          </div>
-          <div>
-            <div class="stat-num">$0</div>
-            <div class="stat-label">本地或免費雲端容器託管</div>
-          </div>
-        </div>
+        <div class="card-title">✅ 目前已完成進度 (Current Progress)</div>
+        <ul>
+          <li><strong>基礎後端建設</strong>：Flask 3.1 伺服器 + LINE SDK v3 簽章防偽。</li>
+          <li><strong>AI 核心通訊</strong>：Google Gemini 整合與四重模型備援序列。</li>
+          <li><strong>排版演算法</strong>：500 字長度控制、標點符號安全截斷、去除 <code>**</code> 星號。</li>
+          <li><strong>邊界穩定度</strong>：貼圖與 Emoji 已讀不回、Windows CP950 UTF-8 修復。</li>
+          <li><strong>穿透與發布</strong>：Cloudflare 隧道公網打通、GitHub 代碼與文件完整同步。</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🧪 真實測試結果 (Actual Test Results)</div>
+        <ul>
+          <li><strong>健康檢查測試</strong>：<code>GET /health</code> 正確回傳 200 JSON，無金鑰外洩。</li>
+          <li><strong>LINE Webhook 驗證</strong>：LINE 後台 Verify 按鈕回傳 Success。</li>
+          <li><strong>真機對話實測</strong>：成功透過手機 LINE 取得 Gemini 繁中問答。</li>
+          <li><strong>極端條件測試</strong>：高頻請求時觸發過免費額度（Token Limit），成功驗證了 Fallback 捕捉與錯誤提示機制。</li>
+        </ul>
       </div>
     </div>
   </div>
 
   <div class="slide-footer">
     <span>LINE Bot v1.0 成果報告</span>
-    <span>Slide 07</span>
+    <span>Slide 07 • 成果審查</span>
   </div>
 </div>
 
-<!-- Slide 8: 實測驗收指標 -->
+<!-- Slide 8: 未完成部分與改善方向 (Unfinished Parts & Improvement Issues) -->
 <div class="slide">
   <div class="slide-header">
-    <span class="slide-category">Verification & Quality Metrics</span>
-    <span class="slide-badge">驗收合格</span>
+    <span class="slide-category">Unfinished Parts & Issues</span>
+    <span class="slide-badge">誠實檢討與演進</span>
   </div>
   <div>
-    <div class="slide-title">專案測試與實際運行指標</div>
-    <div class="slide-subtitle">全方位測試通過，達到生產級別穩定水準</div>
+    <div class="slide-title">第一版未完成部分與待改善問題</div>
+    <div class="slide-subtitle">誠實列舉當前版本的局限性，作為下一階段開發重點</div>
   </div>
 
   <div class="slide-body">
     <div class="grid-4">
-      <div class="card" style="text-align: center;">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">功能測試通過率</div>
-        <div style="font-size: 8pt; color: #64748b; margin-top: 4px;">Echo / AI / Sticker 測試皆合格</div>
+      <div class="card card-rose">
+        <div class="card-title" style="font-size:10.5pt;">1. 缺乏多輪對話記憶</div>
+        <div class="card-desc">
+          <strong>現狀：</strong>目前每次對話皆為獨立無狀態 (Stateless)，無法記住上一句脈絡。<br>
+          <strong>改善：</strong>導入 SQLite 或 Redis 儲存最近 3~5 輪 Session 歷史。
+        </div>
       </div>
 
-      <div class="card" style="text-align: center;">
-        <div class="stat-num">200 OK</div>
-        <div class="stat-label">LINE Webhook 認證</div>
-        <div style="font-size: 8pt; color: #64748b; margin-top: 4px;">LINE 後台 Verify 成功通過</div>
-      </div>
-
-      <div class="card" style="text-align: center;">
-        <div class="stat-num">&lt; 2 秒</div>
-        <div class="stat-label">端到端平均延遲</div>
-        <div style="font-size: 8pt; color: #64748b; margin-top: 4px;">Gemini Flash 模型極速生成</div>
-      </div>
-
-      <div class="card" style="text-align: center;">
-        <div class="stat-num">0 件</div>
-        <div class="stat-label">資安與密鑰外洩紀錄</div>
-        <div style="font-size: 8pt; color: #64748b; margin-top: 4px;">公開 GitHub 儲存庫乾淨安全</div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top: 14px; background: rgba(30, 41, 59, 0.4);">
-      <div style="font-weight: 700; color: #fff; margin-bottom: 6px;">📋 關鍵測試項目紀錄：</div>
-      <div style="font-size: 9pt; color: #94a3b8; line-height: 1.6;">
-        ✅ <strong>文字發問測試</strong>：「請問明天推薦吃什麼？」 ➔ Gemini 回覆親切繁中菜單建議（無粗體星號，長度約 280 字）。<br>
-        ✅ <strong>貼圖測試</strong>：傳送哭臉貼圖 ➔ 伺服器記錄日誌，手機端無任何多餘訊息（已讀不回）。<br>
-        ✅ <strong>外部隧道測試</strong>：<code>https://...trycloudflare.com/health</code> 回傳 HTTP 200 JSON 狀態。
-      </div>
-    </div>
-  </div>
-
-  <div class="slide-footer">
-    <span>LINE Bot v1.0 成果報告</span>
-    <span>Slide 08</span>
-  </div>
-</div>
-
-<!-- Slide 9: 未來擴充藍圖 (Roadmap) -->
-<div class="slide">
-  <div class="slide-header">
-    <span class="slide-category">Future Roadmap</span>
-    <span class="slide-badge">版本演進規劃</span>
-  </div>
-  <div>
-    <div class="slide-title">後續版本升級規劃 (v2.0 & v3.0)</div>
-    <div class="slide-subtitle">打造功能更強大、互動更豐富的次世代智慧助手</div>
-  </div>
-
-  <div class="slide-body">
-    <div class="grid-2">
-      <div class="card card-highlight">
-        <div class="card-title" style="color: #06c755;">🚀 v2.0 近期規劃 (互動與體驗升級)</div>
-        <ul>
-          <li><strong>LINE 圖文選單 (Rich Menu)</strong>：建立客製化九宮格按鈕，支援「天氣」、「生活建議」、「快速清空記憶」等功能。</li>
-          <li><strong>多輪對話上下文記憶</strong>：導入輕量級資料庫快取，保留使用者過去 3~5 輪問答脈絡。</li>
-          <li><strong>多模態視覺辨識 (Vision)</strong>：接收使用者傳送的照片，調用 Gemini 圖像理解進行物品或菜單分析。</li>
-        </ul>
+      <div class="card card-amber">
+        <div class="card-title" style="font-size:10.5pt;">2. 本地伺服器依賴</div>
+        <div class="card-desc">
+          <strong>現狀：</strong>服務依賴本地電腦開機與臨時 Cloudflare 隧道，休眠即中斷。<br>
+          <strong>改善：</strong>容器化 Docker 封裝並部署至 Google Cloud Run 或 Render。
+        </div>
       </div>
 
       <div class="card card-blue">
-        <div class="card-title" style="color: #60a5fa;">🌐 v3.0 長期規劃 (自動化與企業級)</div>
-        <ul>
-          <li><strong>全雲端容器化部署</strong>：使用 Docker 封裝並部署至 Google Cloud Run，達成全天候 24 小時免電腦開機運作。</li>
-          <li><strong>客製化外部知識庫 (RAG)</strong>：連接 Notion 或 Google Docs，打造特定領域專業問答專家。</li>
-          <li><strong>管理員指令面板</strong>：在 LINE 中輸入管理員密令即可即時查看 API 調用量與伺服器日誌。</li>
-        </ul>
+        <div class="card-title" style="font-size:10.5pt;">3. 缺少圖文選單</div>
+        <div class="card-desc">
+          <strong>現狀：</strong>聊天室底部無 Rich Menu，初次使用者不知能問什麼。<br>
+          <strong>改善：</strong>設計六宮格圖文選單，提供快速功能快捷鍵。
+        </div>
+      </div>
+
+      <div class="card card-purple">
+        <div class="card-title" style="font-size:10.5pt;">4. 尚未支援多模態圖片</div>
+        <div class="card-desc">
+          <strong>現狀：</strong>用戶傳送照片時被略過，無法分析圖片內容。<br>
+          <strong>改善：</strong>新增 <code>ImageMessageContent</code>，串接 Gemini 視覺辨識分析影像。
+        </div>
       </div>
     </div>
   </div>
 
   <div class="slide-footer">
     <span>LINE Bot v1.0 成果報告</span>
-    <span>Slide 09</span>
+    <span>Slide 08 • 待改善方向</span>
   </div>
 </div>
 
-<!-- Slide 10: 結語與專案連結 -->
-<div class="slide" style="text-align: center; justify-content: center; background: radial-gradient(circle at 50% 50%, rgba(6, 199, 85, 0.12) 0%, rgba(11, 15, 25, 1) 80%);">
-  <div style="margin-bottom: 12px;">
-    <span class="slide-badge" style="font-size: 11pt; padding: 6px 18px;">THANK YOU</span>
+<!-- Slide 9: 總結與開源資源 -->
+<div class="slide" style="text-align: center; justify-content: center; background: radial-gradient(circle at 50% 50%, rgba(6, 199, 85, 0.12) 0%, rgba(9, 13, 22, 1) 80%);">
+  <div style="margin-bottom: 10px;">
+    <span class="slide-badge" style="font-size: 11pt; padding: 6px 18px;">PROJECT SUMMARY</span>
   </div>
-  <div style="font-size: 32pt; font-weight: 900; color: #ffffff; margin-bottom: 15px;">
-    簡報完畢 • 感謝聆聽
+  <div style="font-size: 30pt; font-weight: 900; color: #ffffff; margin-bottom: 10px;">
+    總結：打造穩健、好讀、零成本的個人 AI 助理
   </div>
-  <div style="font-size: 14pt; color: #06c755; margin-bottom: 30px; font-weight: 600;">
-    LINE Bot with Gemini AI (v1.0) 專案圓滿交付
+  <div style="font-size: 13pt; color: #06c755; margin-bottom: 24px; font-weight: 600;">
+    LINE Bot 第一版（v1.0）成果驗收完成
   </div>
 
-  <div class="card" style="max-width: 650px; margin: 0 auto; text-align: left; background: rgba(30, 41, 59, 0.8);">
-    <div style="font-weight: 700; color: #fff; margin-bottom: 8px;">🔗 相關連結與開源儲存庫：</div>
-    <div style="font-size: 10pt; color: #cbd5e1; line-height: 1.8;">
-      • <strong>GitHub 專案倉庫：</strong> <a href="https://github.com/41154B003Sam/line-bot" style="color: #38bdf8; text-decoration: none;">https://github.com/41154B003Sam/line-bot</a><br>
-      • <strong>LINE Developers 後台：</strong> <a href="https://developers.line.biz/" style="color: #38bdf8; text-decoration: none;">https://developers.line.biz/</a><br>
-      • <strong>Google AI Studio：</strong> <a href="https://aistudio.google.com/app/apikey" style="color: #38bdf8; text-decoration: none;">https://aistudio.google.com/app/apikey</a><br>
-      • <strong>交付文件：</strong> 專案計畫書 (PDF/HTML)、成果簡報 (PDF/HTML)、執行摘要 (MD)
+  <div class="card" style="max-width: 700px; margin: 0 auto; text-align: left; background: rgba(22, 30, 46, 0.85);">
+    <div style="font-weight: 700; color: #fff; margin-bottom: 8px;">🔗 專案資源與儲存庫資訊：</div>
+    <div style="font-size: 9.5pt; color: #cbd5e1; line-height: 1.8;">
+      • <strong>GitHub 儲存庫：</strong> <a href="https://github.com/41154B003Sam/line-bot" style="color: #38bdf8; text-decoration: none;">https://github.com/41154B003Sam/line-bot</a><br>
+      • <strong>交付文件清單：</strong> 專案計畫書 PDF (A4)、成果簡報 PDF (16:9)、HTML 原檔、執行摘要 MD<br>
+      • <strong>開源授權：</strong> MIT License 供個人學習與延伸開發使用
     </div>
   </div>
 
-  <div style="margin-top: 25px; font-size: 9.5pt; color: #64748b;">
-    © 2026 41154B003Sam. Released under open-source license.
+  <div style="margin-top: 22px; font-size: 9pt; color: #64748b;">
+    © 2026 41154B003Sam • LINE Bot with Gemini AI v1.0
   </div>
 </div>
 
