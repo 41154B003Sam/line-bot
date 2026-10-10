@@ -18,15 +18,19 @@
 
 ---
 
-## 📁 專案結構
+## 📁 專案結構與文件交付 (Deliverables)
 
 ```
 line-bot/
-├── app.py              # 主程式（Flask 伺服器 + LINE Webhook + Gemini AI）
-├── requirements.txt    # Python 套件依賴
-├── .env.example        # 環境變數範例（複製為 .env 並填入自己的金鑰）
-├── .gitignore          # Git 忽略規則（排除 .env 等機密檔案）
-└── walkthrough.md      # 開發紀錄與操作教學
+├── app.py                           # 主程式（Flask 伺服器 + LINE Webhook + Gemini AI）
+├── requirements.txt                 # Python 套件依賴
+├── .env.example                     # 環境變數範例（複製為 .env 並填入自己的金鑰）
+├── .gitignore                       # Git 忽略規則（排除 .env 等機密檔案）
+├── LINE_Bot_v1_Project_Plan.pdf    # 📄 專案計畫書正式文件 (A4 PDF)
+├── LINE_Bot_v1_Presentation.pdf    # 📊 專案成果簡報投影片 (16:9 PDF)
+├── LINE_Bot_v1_Project_Plan.html   # 專案計畫書網頁原始檔 (A4)
+├── LINE_Bot_v1_Presentation.html   # 成果簡報投影片原始檔 (16:9)
+└── LINE_Bot_v1_Executive_Summary.md # 執行摘要說明文件
 ```
 
 ---
