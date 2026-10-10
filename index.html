@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINE Bot 改善版開發紀錄 — 智聊小精靈 (Gemini Smart Bot)</title>
+<style>
+  :root {
+    --primary: #06c755;
+    --primary-dark: #05a044;
+    --primary-light: #e8f9ed;
+    --bg-dark: #0f172a;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --accent-blue: #3b82f6;
+    --accent-amber: #f59e0b;
+    --accent-rose: #ef4444;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    background-color: #f8fafc;
+    color: var(--text-main);
+    line-height: 1.7;
+    padding-bottom: 60px;
+  }
+
+  /* Header / Hero */
+  header {
+    background: linear-gradient(135deg, #0b1329 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 50px 20px 40px 20px;
+    text-align: center;
+    border-bottom: 4px solid var(--primary);
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(6, 199, 85, 0.2);
+    color: #06c755;
+    border: 1px solid rgba(6, 199, 85, 0.5);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: #94a3b8;
+    max-width: 750px;
+    margin: 0 auto 25px auto;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+  }
+
+  /* Container */
+  .container {
+    max-width: 960px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f1f5f9;
+  }
+
+  .card-icon {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #334155;
+    margin: 18px 0 8px 0;
+  }
+
+  p {
+    margin-bottom: 12px;
+    color: #334155;
+  }
+
+  /* Key-Value / Grids */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+    h1 {
+      font-size: 1.7rem;
+    }
+  }
+
+  .info-box {
+    background: #f8fafc;
+    border-left: 4px solid var(--primary);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+  }
+
+  .info-box.alert {
+    border-left-color: var(--accent-amber);
+    background: #fffbeb;
+  }
+
+  .info-box.blue {
+    border-left-color: var(--accent-blue);
+    background: #eff6ff;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 0.95rem;
+  }
+
+  th, td {
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+
+  th {
+    background: #f1f5f9;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  /* Chat Bubbles */
+  .chat-box {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .chat-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-item.user {
+    align-items: flex-end;
+  }
+
+  .chat-item.bot {
+    align-items: flex-start;
+  }
+
+  .chat-bubble {
+    max-width: 85%;
+    padding: 10px 16px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+
+  .chat-bubble.user {
+    background: var(--primary);
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+  }
+
+  .chat-bubble.bot {
+    background: #1e293b;
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom-left-radius: 4px;
+  }
+
+  .chat-author {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 4px;
+  }
+
+  /* Code block */
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 14px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 12px 0;
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .tag-success { background: #dcfce7; color: #166534; }
+  .tag-warning { background: #fef9c3; color: #854d0e; }
+  .tag-info { background: #dbeafe; color: #1e40af; }
+
+  /* Links */
+  a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-right: 10px;
+    margin-top: 8px;
+  }
+  .btn:hover {
+    background: var(--primary-dark);
+    text-decoration: none;
+  }
+  .btn-outline {
+    background: transparent;
+    color: #0f172a;
+    border: 2px solid #cbd5e1;
+  }
+  .btn-outline:hover {
+    background: #f1f5f9;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+    margin: 15px 0;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: #cbd5e1;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary);
+  }
+  .timeline-title {
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .timeline-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">課後作業 LINE Bot 改善版專題</div>
+  <h1>智聊小精靈 (Gemini Smart Bot) 開發紀錄</h1>
+  <p class="hero-sub">以第一版為起點，完成輸入防呆引導、不支援訊息智能提示與離線功能指南之深度改善</p>
+  <div class="hero-meta">
+    <div><strong>開發者：</strong>41154B003Sam</div>
+    <div><strong>版本：</strong>v1.0.1 (改善版)</div>
+    <div><strong>技術架構：</strong>Python / Flask / LINE Messaging API v3 / Google Gemini</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- 一、專題介紹 -->
+  <section class="card" id="intro">
+    <div class="card-header">
+      <span class="card-icon">📌</span>
+      <h2>一、專題介紹</h2>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h3>💡 專題用途</h3>
+        <p>提供一個隨身常駐於 LINE 聊天室的 24/7 生活智慧對話助理。使用者無需下載額外 App 或切換至付費 AI 網頁，在日常熟悉的通訊軟體中即可發問生活知識、旅遊推薦、草稿撰寫與靈感解答。</p>
+      </div>
+      <div>
+        <h3>👥 使用對象</h3>
+        <p>所有 LINE 日常高頻度使用者（學生、上班族、家庭成員），尤其適合需要在手機上以簡潔中文快速獲得答案、不耐繁複操作的人群。</p>
+      </div>
+    </div>
+    <div>
+      <h3>⚡ 核心功能</h3>
+      <p><strong>「繁中語意問答與排版收斂引擎」</strong>：整合 Google Gemini 最新 Flash 模型，設定台灣繁中語境，實作 500 字長度安全收斂、標點截斷、移除 Markdown 雙星號粗體標籤，以及貼圖與純表情已讀不回防洗版機制。</p>
+    </div>
+  </section>
+
+  <!-- 二、改善版四大紀錄 (重點審查項目) -->
+  <section class="card" id="improvement">
+    <div class="card-header">
+      <span class="card-icon">🔄</span>
+      <h2>二、改善版核心紀錄（原本問題、修改內容、前後差異、重測結果）</h2>
+    </div>
+    <div class="info-box alert">
+      <strong>改善重點：</strong>依照作業規範，自第一版為起點完成「輸入防呆引導、不支援訊息提示與內建離線功能清單」，全面覆蓋使用者異常輸入之健全防護。
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 20%;">項目</th>
+          <th>詳細說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. 原本問題<br>(Original Problem)</strong></td>
+          <td>
+            • <strong>輸入不完整問題</strong>：使用者若傳送純空白、空格或僅輸入「推薦」、「幫我」等模糊短詞，第一版會直接發送至 Gemini API，造成 Token 浪費且 AI 容易誤判產生偏離回答。<br>
+            • <strong>不支援格式無反饋</strong>：第一版僅註冊文字與貼圖處理器。若使用者傳送語音、位置、影片、檔案等訊息，機器人直接已讀不回，使用者無法判斷機器人是否發生故障。<br>
+            • <strong>缺乏離線指令指南</strong>：初次加入好友之使用者無從得知推薦發問句型，缺乏快捷說明。
+          </td>
+        </tr>
+        <tr>
+          <td><strong>2. 修改內容<br>(The Changes)</strong></td>
+          <td>
+            • <strong>實作空白與不完整輸入攔截器</strong>：檢查 <code>user_text.strip()</code>，針對空白字串與「推薦」、「幫我」、「查詢」等關鍵字提供親切的分類選項引導。<br>
+            • <strong>註冊全格式不支援處理器</strong>：新增 <code>ImageMessageContent</code>、<code>AudioMessageContent</code>、<code>VideoMessageContent</code>、<code>LocationMessageContent</code> 與 <code>FileMessageContent</code> 處理邏輯，明確告知功能限制並引導打字。<br>
+            • <strong>新增內建離線功能指南</strong>：支援輸入「說明」、「功能」、「/help」，免呼叫 AI 即時回覆繁中功能導覽與範例。
+          </td>
+        </tr>
+        <tr>
+          <td><strong>3. 前後差異<br>(Before vs After)</strong></td>
+          <td>
+            • <strong>改善前 (v1.0.0)</strong>：遇到非文字格式完全無反饋；模糊輸入易浪費 AI 配額；無內建幫助指令。<br>
+            • <strong>改善後 (v1.0.1)</strong>：訊息格式 100% 覆蓋反饋；模糊字主動提醒補充細節；提供即時說明選單，大幅提升使用者體驗與防呆能力。
+          </td>
+        </tr>
+        <tr>
+          <td><strong>4. 重新測試結果<br>(Retest Results)</strong></td>
+          <td>
+            • 測試空白輸入與「推薦」均能精準觸發補充提示。<br>
+            • 測試傳送語音與位置資訊均獲得親切不支援提示，並引導打字。<br>
+            • 正常長句提問依然由 Gemini 穩定回答，排版清爽自然，三大情境全數通過。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 三、操作示範：對話範例 -->
+  <section class="card" id="demo">
+    <div class="card-header">
+      <span class="card-icon">💬</span>
+      <h2>三、操作示範：三大情境對話範例</h2>
+    </div>
+
+    <h3>1. 正常使用情境（台北旅遊推薦）</h3>
+    <div class="chat-box">
+      <div class="chat-item user">
+        <span class="chat-author">使用者 (User)</span>
+        <div class="chat-bubble user">我想在週末安排台北一日遊，請推薦 3 個搭捷運能到的景點和美食！</div>
+      </div>
+      <div class="chat-item bot">
+        <span class="chat-author">智聊小精靈 (Bot)</span>
+        <div class="chat-bubble bot">嗨！沒問題，為你精選 3 個搭捷運就能輕鬆抵達的台北一日遊好去處 🚇✨
+
+1. 中山站赤峰街：漫步文青巷弄小店與老宅咖啡廳，推薦品嚐排隊甜點戚風蛋糕 🍰
+2. 大安森林公園站：享受都市森林綠意，野餐放鬆，還能順道漫步永康街吃牛肉麵 🍜
+3. 淡水站金色水岸：傍晚漫步淡水河畔看浪漫夕陽，必吃現炸魚酥與阿給小吃 🌅
+
+這條路線交通非常順暢，很適合週末放慢步調散步放鬆喔！祝你有個愉快充實的週末～😊</div>
+      </div>
+    </div>
+
+    <h3>2. 輸入不完整情境（僅輸入「推薦」）</h3>
+    <div class="chat-box">
+      <div class="chat-item user">
+        <span class="chat-author">使用者 (User)</span>
+        <div class="chat-bubble user">推薦</div>
+      </div>
+      <div class="chat-item bot">
+        <span class="chat-author">智聊小精靈 (Bot)</span>
+        <div class="chat-bubble bot">哈囉！收到您的「推薦」需求～請問您想要哪一種類型的推薦呢？😄
+
+1. 🍽️ 美食餐廳（請提供地點、預算或料理類型）
+2. 🏖️ 旅遊景點（請提供天數、縣市或旅行偏好）
+3. 🎬 電影書籍（請提供喜愛的題材類型）
+
+請補充詳細一點的線索，小精靈就能為您量身打造精準推薦喔！✨</div>
+      </div>
+    </div>
+
+    <h3>3. 不支援的輸入情境（使用者傳送位置訊息）</h3>
+    <div class="chat-box">
+      <div class="chat-item user">
+        <span class="chat-author">使用者 (User)</span>
+        <div class="chat-bubble user">📍 [發送了台北車站地理位置]</div>
+      </div>
+      <div class="chat-item bot">
+        <span class="chat-author">智聊小精靈 (Bot)</span>
+        <div class="chat-bubble bot">【智聊小精靈使用提示】📍
+收到位置資訊！目前小精靈暫不支援即時定位分析，請直接打字告訴我您想查詢的地點或附近景點（例如：「推薦台北信義區美食」）！</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 四、開發過程 -->
+  <section class="card" id="process">
+    <div class="card-header">
+      <span class="card-icon">🚀</span>
+      <h2>四、開發過程紀錄</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-title">第一階段：需求與計畫擬定</div>
+        <div class="timeline-desc">確立從 Echo Bot 升級至 AI Smart Bot 的核心方向，規劃 Flask 後端架構與金鑰隔離機制。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">第二階段：核心後端開發與 AI 串接</div>
+        <div class="timeline-desc">使用 <code>line-bot-sdk v3</code> 實作 Webhook，串接 Google Gemini API，設計繁中提示詞與四重模型降級佇列。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">第三階段：邊界與編碼修復</div>
+        <div class="timeline-desc">解決 Windows CP950 編碼列印 Emoji 造成的崩潰問題；加入貼圖已讀不回與 500 字安全句尾截斷演算法。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">第四階段：改善版功能升級 (v1.0.1)</div>
+        <div class="timeline-desc">新增輸入防呆檢驗、不支援訊息類型（語音/位置/檔案/影片）即時提示、離線說明指令，完成完整單元測試。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 五、AI 協作方式 -->
+  <section class="card" id="ai-collab">
+    <div class="card-header">
+      <span class="card-icon">🤖</span>
+      <h2>五、AI 協作歷程與除錯經驗</h2>
+    </div>
+
+    <h3>1. 使用的 AI 工具</h3>
+    <p>Google Antigravity AI Agent、Google Gemini 3.8 Flash、Git / GitHub CLI、Microsoft Edge Headless PDF 引擎。</p>
+
+    <h3>2. 代表性指令 (Prompt)</h3>
+    <pre>「請以 Python 3.12 與 LINE Messaging API v3 為架構，串接 Google Gemini API。
+要求：
+1. 設計四重模型自動降級佇列（gemini-flash-latest -> gemini-3.8-flash -> gemini-3.5-flash -> gemini-flash-lite）。
+2. System Prompt 控制輸出為台灣繁體中文，字數限制 250~450 字，移除 Markdown 雙星號。
+3. 實作標點符號安全句尾截斷演算法，確保在 500 字上限內不會話說到一半中斷。」</pre>
+
+    <h3>3. 一次檢查或修正 AI 產出的經驗</h3>
+    <div class="info-box blue">
+      <strong>真實除錯經驗：</strong><br>
+      在初版測試時，AI 產出的原始程式碼直接在 Windows 終端機中 <code>print()</code> 包含 Emoji 的 Gemini AI 回覆，導致 Windows 預設的 <code>cp950 / Big5</code> 編碼拋出 <code>UnicodeEncodeError: 'cp950' codec can't encode character</code> 造成伺服器直接崩潰離線。<br>
+      <strong>修正過程：</strong>經由檢視伺服器日誌定位問題後，手動要求 AI 在 <code>app.py</code> 啟動最前緣加入底層標準輸出重定向：<br>
+      <code>sys.stdout.reconfigure(encoding="utf-8", errors="replace")</code><br>
+      成功徹底解決跨平台終端編碼崩潰問題，伺服器從此穩定常駐。
+    </div>
+  </section>
+
+  <!-- 六、測試結果 (實測證明段落) -->
+  <section class="card" id="test-proof">
+    <div class="card-header">
+      <span class="card-icon">🧪</span>
+      <h2>六、測試結果與實測證明</h2>
+    </div>
+    <p>依據作業要求，親自測試三大情境，紀錄輸入內容、預期結果與實際結果如下：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>情境</th>
+          <th>輸入內容</th>
+          <th>預期結果</th>
+          <th>實際結果</th>
+          <th>狀態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>情境一：正常使用</strong></td>
+          <td>「請推薦台北 3 個適合閱讀的安靜咖啡廳」</td>
+          <td>產出 250~450 字繁體中文推薦，排版條列清晰，無 <code>**</code> 星號，句尾完整收尾。</td>
+          <td>成功回傳「嗨！我是你的智聊小精靈...為你精選 3 間台北極度適合沉浸閱讀的口袋名單...」完整收尾於句點，手機端正常收到。</td>
+          <td><span class="tag tag-success">通過</span></td>
+        </tr>
+        <tr>
+          <td><strong>情境二：輸入不完整</strong></td>
+          <td>「   」（純空格） 或 「推薦」</td>
+          <td>不呼叫 Gemini 浪費 Token，即時提示使用者輸入不完整，並提供分類選項提醒補充。</td>
+          <td>空白輸入回覆：「您輸入的訊息好像是空白的喔！...」；「推薦」回覆：「哈囉！收到您的推薦需求～請問您想要哪一種類型的推薦呢？1. 美食 2. 旅遊 3. 電影...」</td>
+          <td><span class="tag tag-success">通過</span></td>
+        </tr>
+        <tr>
+          <td><strong>情境三：不支援的輸入</strong></td>
+          <td>傳送地理位置資訊 或 語音訊息</td>
+          <td>提供明確親切之使用提示，告知目前不支援該格式，引導改用文字打字互動。</td>
+          <td>位置訊息回覆：「【智聊小精靈使用提示】📍 收到位置資訊！目前小精靈暫不支援即時定位分析...」；語音訊息回覆：「🎙️ 收到您的語音訊息！目前小精靈僅支援文字訊息交流...」</td>
+          <td><span class="tag tag-success">通過</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 七、心得與限制 -->
+  <section class="card" id="reflections">
+    <div class="card-header">
+      <span class="card-icon">💭</span>
+      <h2>七、心得、已知限制與下一步</h2>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h3>🌱 學到的收穫</h3>
+        <ul>
+          <li>深入掌握 LINE Webhook HMAC-SHA256 簽章安全機制與事件派送模型。</li>
+          <li>學會 Google Gemini 生成模型參數（System Instructions、Max Output Tokens）與例外降級設計。</li>
+          <li>體驗 AI 協作開發的高效流程，同時體認到對 AI 產出程式碼進行邊界條件檢查與平台相容性審查的必要性。</li>
+        </ul>
+      </div>
+      <div>
+        <h3>⚠️ 已知限制與下一步改善</h3>
+        <ul>
+          <li><strong>無多輪對話記憶</strong>：目前仍為無狀態 (Stateless)，下階段規劃引入 Redis 記錄 Session 上下文。</li>
+          <li><strong>本地運行依賴</strong>：目前依賴本機開機與 Cloudflare 穿透，下階段將容器化部署至 Google Cloud Run。</li>
+          <li><strong>尚未支援圖文選單 (Rich Menu)</strong>：下階段將在 LINE 後台建立六宮格視覺快捷鍵。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 八、成果連結與繳交資訊 -->
+  <section class="card" id="submission" style="border: 2px solid var(--primary); background: #f0fdf4;">
+    <div class="card-header">
+      <span class="card-icon">🎓</span>
+      <h2>八、成果連結與 e 學苑繳交資訊</h2>
+    </div>
+
+    <div style="font-size: 1.05rem; line-height: 1.9; margin-bottom: 20px;">
+      <p><strong>專題名稱：</strong>智聊小精靈 (Gemini Smart Bot)</p>
+      <p><strong>GitHub 專案連結：</strong><a href="https://github.com/41154B003Sam/line-bot" target="_blank">https://github.com/41154B003Sam/line-bot</a></p>
+      <p><strong>開發紀錄網頁連結：</strong><a href="https://41154b003sam.github.io/line-bot/" target="_blank">https://41154b003sam.github.io/line-bot/</a></p>
+      <p><strong>實測證明位置（網頁段落）：</strong><a href="#test-proof">本網頁第六章「測試結果與實測證明」(#test-proof)</a></p>
+      <p><strong>成果簡報 PDF 檔案：</strong><a href="LINEBot-智聊小精靈-成果簡報.pdf" target="_blank">LINEBot-智聊小精靈-成果簡報.pdf</a></p>
+    </div>
+
+    <div>
+      <a class="btn" href="https://github.com/41154B003Sam/line-bot" target="_blank">造訪 GitHub 專案庫</a>
+      <a class="btn btn-outline" href="LINEBot-智聊小精靈-成果簡報.pdf" target="_blank">下載成果簡報 PDF</a>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

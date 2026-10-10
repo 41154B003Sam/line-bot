@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>LINEBot-智聊小精靈-成果簡報</title>
+<style>
+  @page {
+    size: 297mm 167mm; /* 標準 16:9 比例 */
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    background-color: #0b1329;
+    color: #f1f5f9;
+  }
+
+  .slide {
+    width: 297mm;
+    height: 167mm;
+    padding: 14mm 18mm 12mm 18mm;
+    page-break-after: always;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 85% 15%, rgba(6, 199, 85, 0.1) 0%, rgba(11, 19, 41, 1) 75%);
+  }
+
+  .slide:last-child {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Header */
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+  }
+
+  .slide-badge {
+    background: rgba(6, 199, 85, 0.18);
+    color: #06c755;
+    border: 1px solid rgba(6, 199, 85, 0.5);
+    font-size: 9.5pt;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 12px;
+  }
+
+  .slide-num {
+    font-size: 10pt;
+    color: #94a3b8;
+    font-weight: 700;
+  }
+
+  /* Titles */
+  .slide-title {
+    font-size: 22pt;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 3px 0;
+    letter-spacing: -0.5px;
+  }
+
+  .slide-subtitle {
+    font-size: 11pt;
+    color: #94a3b8;
+    margin: 0 0 10px 0;
+  }
+
+  /* Main Body */
+  .slide-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Footer */
+  .slide-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 6px;
+    font-size: 8.5pt;
+    color: #64748b;
+  }
+
+  /* Grids & Cards */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .card {
+    background: rgba(22, 34, 60, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 13px 16px;
+  }
+
+  .card-highlight {
+    border-color: rgba(6, 199, 85, 0.5);
+    background: linear-gradient(135deg, rgba(6, 199, 85, 0.12) 0%, rgba(22, 34, 60, 0.85) 100%);
+  }
+
+  .card-blue {
+    border-color: rgba(66, 133, 244, 0.5);
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.12) 0%, rgba(22, 34, 60, 0.85) 100%);
+  }
+
+  .card-amber {
+    border-color: rgba(245, 158, 11, 0.5);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(22, 34, 60, 0.85) 100%);
+  }
+
+  .card-title {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-desc {
+    font-size: 9pt;
+    color: #cbd5e1;
+    line-height: 1.5;
+  }
+
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+  }
+
+  th, td {
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: left;
+  }
+
+  th {
+    background: rgba(30, 41, 59, 0.9);
+    color: #38bdf8;
+    font-weight: 700;
+  }
+
+  tr:nth-child(even) td {
+    background: rgba(15, 23, 42, 0.5);
+  }
+
+  /* Chat Bubbles */
+  .chat-box {
+    background: #090e1a;
+    border-radius: 8px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bubble-u {
+    align-self: flex-end;
+    background: #06c755;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 12px 12px 2px 12px;
+    font-size: 8.5pt;
+    max-width: 85%;
+  }
+
+  .bubble-b {
+    align-self: flex-start;
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+    padding: 6px 10px;
+    border-radius: 12px 12px 12px 2px;
+    font-size: 8.5pt;
+    max-width: 90%;
+    line-height: 1.4;
+    white-space: pre-line;
+  }
+
+  .tag-pass {
+    display: inline-block;
+    background: rgba(6, 199, 85, 0.2);
+    color: #06c755;
+    border: 1px solid rgba(6, 199, 85, 0.5);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  ul {
+    margin: 3px 0;
+    padding-left: 16px;
+    font-size: 9pt;
+    color: #cbd5e1;
+  }
+
+  li {
+    margin-bottom: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Page 1: 專題名稱、使用對象與想解決的問題 -->
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-badge">重點一 • 專題定位與受眾</span>
+    <span class="slide-num">PAGE 1 / 5</span>
+  </div>
+  <div>
+    <div class="slide-title">智聊小精靈 (Gemini Smart Bot) 改善版</div>
+    <div class="slide-subtitle">基於 Google Gemini 模型之繁體中文生活對話助理 — 專題名稱、受眾與痛點解析</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="card card-highlight">
+        <div class="card-title">📌 專題名稱與命名意涵</div>
+        <p class="card-desc">
+          <strong>官方專題名稱：</strong><code>智聊小精靈 (Gemini Smart Bot)</code><br>
+          <strong>命名意涵：</strong>以「智慧聊聊」為概念，化身為常駐在每位使用者 LINE 聊天室裡的輕巧小精靈。免去額外下載獨立 App 或前往網頁登入的麻煩，打開 LINE 即可 24/7 隨問隨答。
+        </p>
+        <div class="card-title" style="margin-top: 10px;">👥 使用對象 (Target Audience)</div>
+        <ul>
+          <li><strong>LINE 高頻度日常使用者</strong>：上班族、學生、家庭日常等通訊族群。</li>
+          <li><strong>生活靈感與文案速查者</strong>：想隨手查詢旅遊景點、美食餐廳或潤飾信件的人。</li>
+          <li><strong>追求極簡無廣告者</strong>：厭倦複雜介面，偏好一對一直接問答的使用者。</li>
+        </ul>
+      </div>
+
+      <div class="card card-blue">
+        <div class="card-title">🎯 想解決的核心問題 (Problem Solved)</div>
+        <ul>
+          <li><strong>痛點一：跨 App 查詢之操作負擔</strong><br>傳統使用生成式 AI 需開啟瀏覽器或特製工具；本 Bot 讓 AI 直接融入日常生活聊天室。</li>
+          <li><strong>痛點二：傳統 Bot 死板且缺乏實用性</strong><br>突破傳統 Echo Bot 鸚鵡學舌或關鍵字精確匹配的生硬體驗，賦予真正的自然語言語意推理。</li>
+          <li><strong>痛點三：手機端排版長度混亂</strong><br>解決一般 AI 容易輸出過長字串或帶有粗體星號（<code>**</code>）的問題，專注於手機閱讀的最佳化收斂。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>LINE Bot 成果簡報 • 41154B003Sam</span>
+    <span>重點 1：專題名稱、使用對象與想解決的問題</span>
+  </div>
+</div>
+
+<!-- Page 2: 核心功能與對話範例 -->
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-badge">重點二 • 核心功能與示範</span>
+    <span class="slide-num">PAGE 2 / 5</span>
+  </div>
+  <div>
+    <div class="slide-title">核心功能特色與真實對話展示</div>
+    <div class="slide-subtitle">繁中語意問答、長度邊界收斂、Markdown 清洗與智慧防呆引導</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-2">
+      <!-- 左欄：核心功能 -->
+      <div class="card card-highlight">
+        <div class="card-title">⚡ 核心功能：繁中語意問答與排版收斂</div>
+        <ul>
+          <li><strong>Gemini Flash 驅動</strong>：官方 SDK 整合，注入親切幽默繁中人設。</li>
+          <li><strong>四重模型自動備援</strong>：<code>flash-latest</code> ➜ <code>3.8-flash</code> ➜ <code>3.5-flash</code> ➜ <code>flash-lite</code>，抵禦 503 尖峰限流。</li>
+          <li><strong>長度邊界安全截斷</strong>：嚴控 250~450 字（上限 500 字），並在句尾標點自然收尾。</li>
+          <li><strong>排版星號清洗</strong>：移除 <code>**</code> 粗體星號，改採親切 Emoji 與換行呈現。</li>
+          <li><strong>改善版防呆升級</strong>：空白訊息提醒、模糊字主動引導、非文字格式提示。</li>
+        </ul>
+      </div>
+
+      <!-- 右欄：對話範例展示 -->
+      <div class="card">
+        <div class="card-title" style="color: #06c755;">💬 雙組對話實例展示</div>
+        
+        <div style="font-size: 8pt; color: #86efac; font-weight: 700; margin-bottom: 2px;">🟢 組一：正常提問情境</div>
+        <div class="chat-box" style="margin-bottom: 6px;">
+          <div class="bubble-u">推薦 3 個台北捷運能到的安靜咖啡廳</div>
+          <div class="bubble-b">嗨！為你精選 3 間適合沉浸閱讀的好去處 ☕✨
+1. 中山站浮光書店：老宅採光極佳，不限時且極度安靜 📚
+2. 科技大樓站未央咖啡：開到深夜，氣氛沉穩適合專心 🌙
+3. 古亭站微客咖啡：文青巷弄小店，遠離塵囂 🌿
+祝你有個愜意的午後時光～😊</div>
+        </div>
+
+        <div style="font-size: 8pt; color: #fbbf24; font-weight: 700; margin-bottom: 2px;">🟡 組二：輸入不完整引導情境</div>
+        <div class="chat-box">
+          <div class="bubble-u">推薦</div>
+          <div class="bubble-b">哈囉！請問您想要哪一種類型的推薦呢？😄
+1. 🍽️ 美食餐廳（請提供地點或料理類型）
+2. 🏖️ 旅遊景點（請提供天數或偏好）
+請補充詳細線索，我立刻為您量身打造推薦！✨</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>LINE Bot 成果簡報 • 41154B003Sam</span>
+    <span>重點 2：核心功能與對話範例</span>
+  </div>
+</div>
+
+<!-- Page 3: 實際操作與測試結果 -->
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-badge">重點三 • 實測結果證明</span>
+    <span class="slide-num">PAGE 3 / 5</span>
+  </div>
+  <div>
+    <div class="slide-title">實際操作驗證與三大測試情境紀錄</div>
+    <div class="slide-subtitle">親自實測「正常使用」、「輸入不完整」與「不支援的輸入」三大關鍵情境</div>
+  </div>
+
+  <div class="slide-body">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 18%;">測試情境</th>
+          <th style="width: 25%;">輸入內容</th>
+          <th style="width: 27%;">預期結果</th>
+          <th style="width: 23%;">實際測試結果</th>
+          <th style="width: 7%;">狀態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>情境一：<br>正常使用</strong></td>
+          <td>「請推薦台北 3 個適合閱讀的安靜咖啡廳」</td>
+          <td>成功解析 Webhook 並呼叫 Gemini，產出 250~450 字繁中回答，無 <code>**</code> 星號，句尾完整收尾。</td>
+          <td>回傳「嗨！我是你的智聊小精靈...為你精選 3 間台北極度適合沉浸閱讀的口袋名單...」完整收尾於句點，手機正常收到。</td>
+          <td><span class="tag-pass">通過</span></td>
+        </tr>
+        <tr>
+          <td><strong>情境二：<br>輸入不完整</strong></td>
+          <td>「   」（純空格）<br>或「推薦」單詞</td>
+          <td>不浪費 AI Token，即時辨識輸入不完整，提醒補充內容並提供分類指引。</td>
+          <td>空白輸入回覆提醒填寫內容；輸入「推薦」回覆提供美食/旅遊/娛樂 3 大分類引導補充。</td>
+          <td><span class="tag-pass">通過</span></td>
+        </tr>
+        <tr>
+          <td><strong>情境三：<br>不支援的輸入</strong></td>
+          <td>發送位置資訊 (Location)<br>或語音訊息 (Audio)</td>
+          <td>攔截不支援格式，親切提示功能限制，引導改用文字輸入互動或輸入「說明」。</td>
+          <td>位置訊息即時回覆告知暫不支援定位分析，請直接打字；語音訊息回覆請改文字輸入。</td>
+          <td><span class="tag-pass">通過</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card card-highlight" style="margin-top: 10px; padding: 10px 14px;">
+      <div style="font-size: 8.5pt; color: #86efac; font-weight: 700;">✅ 改善成果總結：</div>
+      <div style="font-size: 8.5pt; color: #e2e8f0;">
+        所有情境皆已在本地與 Cloudflare 穿透環境下親自驗證通過，伺服器 <code>/health</code> 狀態 200 OK，LINE 後台 Verify 成功，達成 100% 健全覆蓋。
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>LINE Bot 成果簡報 • 41154B003Sam</span>
+    <span>重點 3：實際操作與測試結果</span>
+  </div>
+</div>
+
+<!-- Page 4: AI 如何協助，以及你如何檢查或修正 -->
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-badge">重點四 • AI 協作與除錯</span>
+    <span class="slide-num">PAGE 4 / 5</span>
+  </div>
+  <div>
+    <div class="slide-title">AI 協作開發與關鍵除錯修正經驗</div>
+    <div class="slide-subtitle">深入紀錄使用工具、代表性 Prompt 指令與一次真實修正 AI 產出的經驗</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-2">
+      <!-- 左欄：工具與指令 -->
+      <div class="card card-blue">
+        <div class="card-title">🛠️ 使用的 AI 工具</div>
+        <p class="card-desc">Google Antigravity AI Agent、Google Gemini 3.8 Flash、Git / GitHub CLI、Edge Headless PDF 渲染引擎。</p>
+
+        <div class="card-title" style="margin-top: 10px;">💬 代表性指令 (Prompt)</div>
+        <div style="background: #090e1a; padding: 8px 10px; border-radius: 6px; font-size: 7.5pt; color: #e2e8f0; font-family: Consolas, monospace; line-height: 1.45;">
+          「請以 Python 3.12 與 LINE Messaging API v3 為架構，串接 Google Gemini API。<br>
+          要求：<br>
+          1. 設計四重模型自動降級佇列（gemini-flash-latest -> 3.8-flash -> 3.5-flash -> flash-lite）。<br>
+          2. 控制輸出為台灣繁體中文，字數 250~450 字，移除 Markdown 雙星號。<br>
+          3. 實作標點符號安全句尾截斷演算法，確保 500 字內不中斷半句。」
+        </div>
+      </div>
+
+      <!-- 右欄：檢查與修正經驗 -->
+      <div class="card card-amber">
+        <div class="card-title">🔍 檢查與修正 AI 產出的真實經驗</div>
+        <div class="card-desc" style="font-size: 8.5pt; line-height: 1.55;">
+          <strong>【發現問題】</strong><br>
+          在 Windows 繁體中文環境測試時，AI 產出的原始程式碼直接呼叫 <code>print()</code> 列印包含 Emoji 的 Gemini AI 回覆，導致 Windows 終端機 <code>cp950 / Big5</code> 編碼直接噴出致命錯誤：<br>
+          <code style="color: #f87171; font-size: 7.5pt;">UnicodeEncodeError: 'cp950' codec can't encode character</code>，造成後端伺服器崩潰中斷！<br><br>
+          <strong>【檢查與手動修正】</strong><br>
+          經由檢視伺服器日誌發現是平台編碼衝突，我要求 AI 在 <code>app.py</code> 最前緣強制將底層標準輸出重定向為 UTF-8：<br>
+          <code style="color: #86efac; font-size: 8pt;">sys.stdout.reconfigure(encoding="utf-8", errors="replace")</code><br>
+          並同步為語音、位置、影片新增專屬事件攔截器，徹底消除非預期崩潰。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>LINE Bot 成果簡報 • 41154B003Sam</span>
+    <span>重點 4：AI 如何協助，以及你如何檢查或修正</span>
+  </div>
+</div>
+
+<!-- Page 5: 心得、限制與下一步 (+ 繳交資訊) -->
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-badge">重點五 • 總結與繳交資訊</span>
+    <span class="slide-num">PAGE 5 / 5</span>
+  </div>
+  <div>
+    <div class="slide-title">心得反思、已知限制與下一步演進</div>
+    <div class="slide-subtitle">前後版本差異對比、未來功能藍圖與 e 學苑繳交資訊</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-2" style="margin-bottom: 8px;">
+      <!-- 心得與前後差異 -->
+      <div class="card card-highlight">
+        <div class="card-title">🌱 心得與改善前後差異</div>
+        <div class="card-desc" style="font-size: 8.5pt;">
+          • <strong>前後差異</strong>：第一版遇到非文字格式無反應且模糊字易浪費 Token；改善版達成 100% 格式反饋、空白防呆引導、並提供離線「說明」指令。<br>
+          • <strong>核心心得</strong>：AI agent 能極速加速代碼產出，但唯有開發者深入理解邊界條件與平台相容性，才能打磨出健全穩定的商業級作品。
+        </div>
+      </div>
+
+      <!-- 已知限制與下一步 -->
+      <div class="card card-blue">
+        <div class="card-title">⚠️ 已知限制與下一步藍圖</div>
+        <div class="card-desc" style="font-size: 8.5pt;">
+          1. <strong>無對話記憶 (Stateless)</strong> ➜ 下一步引入 Redis 儲存最近 3~5 輪對話脈絡。<br>
+          2. <strong>本地主機依賴</strong> ➜ 下一步將 Docker 容器化部署至 Google Cloud Run 雲端。<br>
+          3. <strong>無圖文選單</strong> ➜ 下一步在 LINE 後台建立六宮格 Rich Menu 快捷按鈕。
+        </div>
+      </div>
+    </div>
+
+    <!-- e 學苑繳交資訊區塊 -->
+    <div class="card" style="background: rgba(15, 23, 42, 0.95); border: 1.5px solid #06c755; padding: 10px 14px;">
+      <div style="font-size: 9pt; font-weight: 700; color: #06c755; margin-bottom: 4px;">🎓 e 學苑作業繳交資訊：</div>
+      <div style="font-size: 8.5pt; color: #f1f5f9; line-height: 1.6; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 15px;">
+        <div><strong>專題名稱：</strong>智聊小精靈 (Gemini Smart Bot)</div>
+        <div><strong>GitHub 專案：</strong>https://github.com/41154B003Sam/line-bot</div>
+        <div><strong>開發紀錄網頁：</strong>https://41154b003sam.github.io/line-bot/</div>
+        <div><strong>實測證明位置：</strong>網頁第六章「測試結果與實測證明」(#test-proof)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>LINE Bot 成果簡報 • 41154B003Sam</span>
+    <span>重點 5：心得、限制、下一步與繳交資訊</span>
+  </div>
+</div>
+
+</body>
+</html>
